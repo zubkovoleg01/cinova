@@ -1,0 +1,9 @@
+{% extends 'cinova_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<form action="{% url 'account_logout' %}" method="post">
+  {% csrf_token %}
+  <button type="submit">Выйти</button>
+</form>
+{% endblock %}

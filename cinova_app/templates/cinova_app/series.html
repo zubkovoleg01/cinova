@@ -1,0 +1,36 @@
+{% extends 'cinova_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="series movie-grid">
+    <div class="catalog-title">
+      КАТАЛОГ СЕРИАЛОВ
+    </div>
+  {% for series in series.docs %}
+<!--  <p>{{ movie.externalId.kpHD }}</p>-->
+    <article class="movie-card">
+      <img src="{{ series.poster.url }}" alt="{{ series.name }}">
+
+      <div class="content">
+        <h1>{{ series.name }}</h1>
+
+        <div class="infos">
+         <span>{{ series.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ series.year }}&nbsp;&nbsp;<!-- ·&nbsp;&nbsp;{{ series.seasons_count }}--></span>
+        </div>
+
+        <p class="synopsis">
+          {{ series.description|truncatechars:250 }}
+        </p>
+
+        <div class="icons">
+          <form action="{% url 'cinova:add_to_favorites' series.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit"><i class="fas fa-heart"></i></button>
+            </form>
+          <a href="{% url 'cinova:series_detail' series.id %}"><i class="fas fa-eye"></i></a>
+        </div>
+      </div>
+    </article>
+  {% endfor %}
+</section>
+{% endblock %}

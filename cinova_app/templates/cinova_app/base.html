@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINOVA</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="#" type="image/png">
+</head>
+<body>
+    <header class="header">
+        <nav class="menu">
+          <div class="container menu-container">
+              <div class="sign">
+                  <a href="{% url 'home' %}"><span class="fast-flicker">c</span>in<span class="flicker">o</span>va</a>
+              </div>
+              <div class="menu-items">
+                    <div class="menu-item">
+                      <a href="{% url 'home' %}">Главная</a>
+                    </div>
+                    <div class="menu-item">
+                      <a href="{% url 'cinova:movies' %}">Фильмы</a>
+                    </div>
+                    <div class="menu-item">
+                      <a href="{% url 'cinova:series' %}">Сериалы</a>
+                    </div>
+                    <div class="menu-item">
+                      <a href="{% url 'cinova:likes' %}">Избранное</a>
+                    </div>
+              </div>
+                <div class="icons">
+                    <form method="get" action="{% url 'cinova:search_movies' %}">
+                      <div>
+                        <input type="search" placeholder="Search" name="q" />
+                        <button type="submit">Search</button>
+                      </div>
+                    </form>
+                    <a href="{% if user.is_authenticated %}{% url 'cinova:account' %}{% else %}{% url 'account_login' %}{% endif %}">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+          </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

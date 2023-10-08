@@ -1,0 +1,128 @@
+{% extends 'cinova_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="carousel-section">
+    <div class="carousel">
+        <div class="carousel-container">
+            {% for poster in posters %}
+                <div class="carousel-slide">
+                    <img src="{{ poster.image.url }}" alt="{{ poster.name }}">
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</section>
+
+
+<section class="genres-section">
+    <div class="genre-block" id="genre-popular"><i class="fas fa-trophy"></i>&nbsp;Популярные</div>
+    <div class="genre-block" id="genre-new"><i class="fas fa-fire"></i>&nbsp;Новые</div>
+    <div class="genre-block" id="genre-action"><i class="fas fa-crosshairs"></i>&nbsp;Боевик</div>
+    <div class="genre-block" id="genre-comedy"><i class="fas fa-dice"></i>&nbsp;Комедия</div>
+    <div class="genre-block" id="genre-scare"><i class="fas fa-ghost"></i>&nbsp;Ужасы</div>
+    <div class="genre-block" id="genre-adventure"><i class="fas fa-earth-america"></i>&nbsp;Приключения</div>
+    <div class="genre-block" id="genre-detective"><i class="fas fa-user-secret"></i>&nbsp;Детектив</div>
+    <div class="genre-block" id="genre-fantastic"><i class="fas fa-rocket"></i>&nbsp;Фантастика</div>
+</section>
+
+
+<section class="popular-movie movie-grid">
+    <div class="catalog-title">
+        Популярные фильмы
+    </div>
+
+    {% for movie in popular_movies %}
+    <!--  <p>{{ movie.externalId.kpHD }}</p>-->
+    <article class="movie-card slider">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.name }}">
+
+        <div class="content">
+            <h1>{{ movie.name }}</h1>
+
+            <div class="infos">
+                <span>{{ movie.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;
+                    <!-- ·&nbsp;&nbsp;{{ series.seasons_count }}--></span>
+            </div>
+
+            <p class="synopsis">
+                {{ movie.description|truncatechars:250 }}
+            </p>
+
+            <div class="icons">
+                <a href="#"><i class="fas fa-heart"></i></a>
+                <a href="#"><i class="fas fa-eye"></i></a>
+            </div>
+        </div>
+    </article>
+
+    {% endfor %}
+</section>
+
+<section class="new-movies movie-grid">
+    <div class="catalog-title">
+        Новинки
+    </div>
+
+    {% for movie in new_movies %}
+    <!--  <p>{{ movie.externalId.kpHD }}</p>-->
+    <article class="movie-card slider">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.name }}">
+
+        <div class="content">
+            <h1>{{ movie.name }}</h1>
+
+            <div class="infos">
+                <span>{{ movie.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;
+                    <!-- ·&nbsp;&nbsp;{{ series.seasons_count }}--></span>
+            </div>
+
+            <p class="synopsis">
+                {{ movie.description|truncatechars:250 }}
+            </p>
+
+            <div class="icons">
+                <a href="#"><i class="fas fa-heart"></i></a>
+                <a href="#"><i class="fas fa-eye"></i></a>
+            </div>
+        </div>
+    </article>
+
+    {% endfor %}
+</section>
+
+<section class="action-movies movie-grid">
+    <div class="catalog-title">
+
+    </div>
+
+    {% for movie in action_movies %}
+    <!--  <p>{{ movie.externalId.kpHD }}</p>-->
+    <article class="movie-card slider">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.name }}">
+
+        <div class="content">
+            <h1>{{ movie.name }}</h1>
+
+            <div class="infos">
+                <span>{{ movie.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;
+                    <!-- ·&nbsp;&nbsp;{{ series.seasons_count }}--></span>
+            </div>
+
+            <p class="synopsis">
+                {{ movie.description|truncatechars:250 }}
+            </p>
+
+            <div class="icons">
+                <a href="#"><i class="fas fa-heart"></i></a>
+                <a href="#"><i class="fas fa-eye"></i></a>
+            </div>
+        </div>
+    </article>
+
+    {% endfor %}
+</section>
+{% endblock %}
+

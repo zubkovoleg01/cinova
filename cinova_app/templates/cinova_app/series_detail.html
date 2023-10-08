@@ -1,0 +1,82 @@
+{% extends 'cinova_app/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="movie-detail">
+    <h1>{{ series.name }}</h1>
+    <img src="{{ series.poster.url }}" alt="{{ series.name }}">
+    <p>Год: {{ series.year }}</p>
+    <p>Описание: {{ series.description }}</p>
+    <p>Краткое описание: {{ series.shortDescription }}</p>
+    <p>Слоган: {{ series.slogan }}</p>
+    <p>Рейтинг Кинопоиска: {{ series.rating.kp }}</p>
+    <p>Рейтинг IMDb: {{ series.rating.imdb }}</p>
+    <p>Оценки:
+      KP: {{ series.votes.kp }}
+      IMDb: {{ series.votes.imdb }}
+    </p>
+    <p>Продолжительность: {{ series.movieLength }} минут</p>
+    <p>Возрастной рейтинг: {{ series.ageRating }}+</p>
+<!--    <img src="{{ movie.logo.url }}" alt="Логотип">-->
+<!--    <img src="{{ movie.poster.url }}" alt="Постер">-->
+<!--    <img src="{{ movie.poster.previewUrl }}" alt="Превью постера">-->
+<!--    <img src="{{ movie.backdrop.url }}" alt="Задник">-->
+<!--    <img src="{{ movie.backdrop.previewUrl }}" alt="Превью задника">-->
+    <p>Трейлеры:
+      {% for trailer in series.videos.trailers %}
+        <a href="{{ trailer.url }}">{{ trailer.name }}</a>{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    <p>Жанры:
+      {% for genre in series.genres %}
+        {{ genre.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    <p>Страны:
+      {% for country in series.countries %}
+        {{ country.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    <p>Персоны:
+      {% for person in series.persons %}
+        <img src="{{ person.photo }}" alt="{{ person.name }}">
+        {{ person.name }} ({{ person.enName }})<br>
+        Описание: {{ person.description }}<br>
+      {% endfor %}
+    </p>
+    <p>Бюджет: {{ series.budget.value }} {{ series.budget.currency }}</p>
+    <p>Сборы в мире: {{ series.fees.world.value }} {{ series.fees.world.currency }}</p>
+    <p>Сборы в России: {{ series.fees.russia.value }} {{ series.fees.russia.currency }}</p>
+    <p>Сборы в США: {{ series.fees.usa.value }} {{ series.fees.usa.currency }}</p>
+    <p>Дата премьеры:
+      Мир: {{ series.premiere.world }}
+      Россия: {{ series.premiere.russia }}
+    </p>
+    <p>Похожие фильмы:
+      {% for similar_movie in series.similarMovies %}
+        <img src="{{ similar_movie.poster.url }}" alt="{{ similar_movie.name }}">
+        {{ similar_movie.name }} ({{ similar_movie.enName }})<br>
+      {% endfor %}
+    </p>
+    <p>Способы просмотра:
+      {% for watchability_item in movie.watchability.items %}
+        <img src="{{ watchability_item.logo.url }}" alt="{{ watchability_item.name }}">
+        {{ watchability_item.name }}<br>
+        <a href="{{ watchability_item.url }}">Ссылка</a><br>
+      {% endfor %}
+    </p>
+    <p>Входит в топ-10: {{ series.top10 }}</p>
+    <p>Входит в топ-250: {{ series.top250 }}</p>
+<!--    <p>Факты:-->
+<!--      {% for fact in movie.facts %}-->
+<!--        Значение: {{ fact.value | truncatechars:1500 }}<br>-->
+<!--      {% endfor %}-->
+<!--    </p>-->
+    <p>Производственные компании:
+      {% for production_company in movie.productionCompanies %}
+        {{ production_company.name }}<br>
+        <img src="{{ production_company.url }}" alt="{{ production_company.name }}">
+      {% endfor %}
+    </p>
+  </div>
+{% endblock %}
