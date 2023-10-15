@@ -2,21 +2,25 @@
 {% load static %}
 
 {% block content %}
-  <section class="favorite-movies">
+<section class="favorite-movies">
     <h1>Избранные фильмы</h1>
     {% if favorite_movies %}
-      <ul>
+    <ul>
         {% for favorite_movie in favorite_movies %}
-          <li>
-            {{ favorite_movie.movie_id }}
-            {{ favorite_movie.movie_id.name }}
-            {{ favorite_movie.poster.url }}
-            <a href="{% url 'cinova:remove_from_favorites' favorite_movie.movie_id %}">Удалить из избранного</a>
-          </li>
+        <li>
+            <h3>{{ favorite_movie.movie_id }}</h3>
+            <div class="icons">
+                <form action="{% url 'cinova:remove_from_favorites' favorite_movie.movie_id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit"><i class="fas fa-times"></i></button>
+                </form>
+                <a href="{% url 'cinova:movie_detail' favorite_movie.movie_id %}"><i class="fas fa-eye"></i></a>
+            </div>
+        </li>
         {% endfor %}
-      </ul>
+    </ul>
     {% else %}
-      <p>У вас пока нет избранных фильмов.</p>
+    <p>У вас пока нет избранных фильмов.</p>
     {% endif %}
-  </section>
+</section>
 {% endblock %}

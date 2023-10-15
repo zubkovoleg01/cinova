@@ -3,34 +3,39 @@
 
 {% block content %}
 <section class="movies movie-grid">
-    <div class="catalog-title">
-      НАЙДЕННЫЕ РЕЗУЛЬТАТЫ
-    </div>
     {% if movies_data %}
-            {% for movie_result in movies_data %}
+        <div class="catalog-title">
+          НАЙДЕННЫЕ РЕЗУЛЬТАТЫ
+        </div>
+            {% for movie in movies_data %}
               <article class="movie-card">
                     <img
-                        src="{{ movie_result.posterUrlPreview }}"
-                        alt="{{ movie_result.nameRu }}"
+                        src="{{ movie.posterUrlPreview }}"
+                        alt="{{ movie.nameRu }}"
                     />
                     <div class="content">
-                        <h1>{{ movie_result.nameRu }} </h1>
+                        <h1>{{ movie.nameRu }} </h1>
 
                           <div class="infos">
-                            <span>{{ movie_result.rating }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie_result.year }}&nbsp;&nbsp;&nbsp;</span>
+                            <span>{{ movie.rating }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;&nbsp;</span>
                           </div>
 
                           <p class="synopsis">
-                            {{ movie_result.description|truncatechars:250 }}
+                            {{ movie.description|truncatechars:250 }}
                           </p>
 
-                          <div class="icons">
+                            <div class="icons">
+                                <form action="{% url 'cinova:add_to_favorites' movie.filmId %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit"><i class="fas fa-heart"></i></button>
+                                </form>
+                                <a href="{% url 'cinova:movie_detail' movie.filmId %}"><i class="fas fa-eye"></i></a>
+                            </div>
 
-                            <a href="#"><i class="fas fa-eye"></i></a>
-                          </div>
                     </div>
               </article>
             {% endfor %}
+
         {% else %}
           <p>Результатов не найдено</p>
         {% endif %}

@@ -1,0 +1,23 @@
+{% extends 'cinova_app/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+
+{% block content %}
+    <h1>{% trans "Sign In" %}</h1>
+    <p>
+        {% blocktrans %}If you have not created an account yet, then please
+            <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+    </p>
+    <form method="post" action="{{ login_url }}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="{% trans 'Sign In' %}">
+    </form>
+    {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+    {% endif %}
+{% endblock content %}

@@ -10,6 +10,7 @@
     <link rel="icon" href="#" type="image/png">
 </head>
 <body>
+
     <header class="header">
         <nav class="menu">
           <div class="container menu-container">
@@ -33,8 +34,8 @@
                 <div class="icons">
                     <form method="get" action="{% url 'cinova:search_movies' %}">
                       <div>
-                        <input type="search" placeholder="Search" name="q" />
-                        <button type="submit">Search</button>
+                        <input type="search" placeholder="Поиск" name="q" />
+                        <button type="submit"><i class="fas fa-search" ></i></button>
                       </div>
                     </form>
                     <a href="{% if user.is_authenticated %}{% url 'cinova:account' %}{% else %}{% url 'account_login' %}{% endif %}">
@@ -48,7 +49,14 @@
         {% block content %}
         {% endblock %}
     </main>
+<!--    <footer class="footer">-->
+<!--      <div class="container">-->
+<!--        <p>&copy; 2023 CINOVA. Все права защищены.</p>-->
+<!--      </div>-->
+<!--    </footer>-->
 
     <script src="{% static 'js/script.js' %}"></script>
+
+
 </body>
 </html>

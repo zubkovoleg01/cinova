@@ -13,3 +13,5 @@ class FavoriteMovie(models.Model):
 
     def __str__(self):
         return f"{self.user.name} - {self.movie_id}"
+
+

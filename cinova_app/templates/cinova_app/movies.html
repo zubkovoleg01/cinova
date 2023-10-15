@@ -3,20 +3,11 @@
 
 {% block content %}
 <section class="movies movie-grid">
-    <div class="sorting-options">
-        <label for="sort_by">Сортировать по:</label>
-        <select id="sort_by" name="sort_by">
-            <option value="kp_rating">Рейтингу</option>
-            <option value="year">Году выпуска</option>
-
-        </select>
-        <button id="apply_sort">Применить</button>
-    </div>
     <div class="catalog-title">
       КАТАЛОГ ФИЛЬМОВ
     </div>
 
-  {% for movie in movies.docs %}
+  {% for movie in movies %}
 <!--  <p>{{ movie.externalId.kpHD }}</p>-->
     <article class="movie-card ">
       <img src="{{ movie.poster.url }}" alt="{{ movie.name }}">

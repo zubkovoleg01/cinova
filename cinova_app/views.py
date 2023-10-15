@@ -1,59 +1,78 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.core.mail import send_mail
 import requests
 import asyncio
-from typing import List
 from django.core.paginator import Paginator
-from kinopoisk_dev import KinopoiskDev, MovieField, MovieParams, SeasonField, SeasonParams, PossValField
-from kinopoisk_dev.model import MovieDocsResponseDto, Movie, SeasonDocsResponseDto, PossibleValue
+from kinopoisk_dev import KinopoiskDev, MovieField, MovieParams
+from kinopoisk_dev.model import MovieDocsResponseDto, Movie
 from .models import FavoriteMovie, Poster
 
 
-TOKEN = "YOUR TOKEN"
+TOKEN = "D6688G0-ERW4WVC-J0M3Q74-9K2E2NE"
+# TOKEN = "ERVKSC2-VC14SN0-MMBQXZ9-Q29R7HV"
+# TOKEN = "56B40V5-8J9M118-HWS3PW9-NEE3B3Q"
 
 def home(request):
     posters = Poster.objects.all()
     popular_movies = asyncio.run(get_popular_movies_async())
     new_movies = asyncio.run(get_new_movies_async())
-    action_movies = asyncio.run(get_action_movies_async())
+    random_film = asyncio.run(get_random_async())
 
-    return render(request, 'cinova_app/home.html', {'popular_movies': popular_movies.docs, 'new_movies': new_movies.docs, 'action_movies': action_movies.docs, 'posters': posters})
+    context = {'popular_movies': popular_movies.docs, 'new_movies': new_movies.docs, 'posters': posters, 'random_film': random_film}
+
+    return render(request, 'cinova_app/home.html', context)
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
+
 @login_required
 def likes_view(request):
     user = request.user
     favorite_movies = FavoriteMovie.objects.filter(user=user)
-    return render(request, 'cinova_app/likes.html', {'favorite_movies': favorite_movies})
+    context = {'favorite_movies': favorite_movies}
+
+    return render(request, 'cinova_app/likes.html', context)
+
 
 @login_required
 def account_view(request):
-    return render(request, 'accounts/account.html')
+    return render(request, 'account/account.html')
 
 def movie_view(request):
     kp = KinopoiskDev(token=TOKEN)
+    page_number = request.GET.get('page', 1)
     item = kp.find_many_movie(
         params=[
-            MovieParams(keys=MovieField.PAGE, value=3),
-            MovieParams(keys=MovieField.LIMIT, value=16),
+            MovieParams(keys=MovieField.PAGE, value=page_number),
+            MovieParams(keys=MovieField.LIMIT, value=8),
             MovieParams(keys=MovieField.TYPE, value='movie'),
         ]
     )
+    movies = item.docs
 
-    movies = item
-    return render(request, 'cinova_app/movies.html', {'movies': movies})
+    paginator = Paginator(movies, 4)
+    page_obj = paginator.get_page(page_number)
 
-def series_view(request) -> MovieDocsResponseDto:
+    return render(request, 'cinova_app/movies.html', {'movies': movies, 'page_obj': page_obj})
+
+
+def series_view(request):
     kp = KinopoiskDev(token=TOKEN)
+    page_number = request.GET.get('page', 1)
     item = kp.find_many_movie(
         params=[
-            MovieParams(keys=MovieField.PAGE, value=2),
+            MovieParams(keys=MovieField.PAGE, value=page_number),
             MovieParams(keys=MovieField.LIMIT, value=16),
             MovieParams(keys=MovieField.TYPE, value='tv-series'),
         ]
     )
-    series = item
-    return render(request, 'cinova_app/series.html', {'series': series})
+
+    series = item.docs
+
+    paginator = Paginator(series, 4)
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'cinova_app/series.html', {'series': series, 'page_obj': page_obj})
 
 def search_movies(request):
     query = request.GET.get('q', '')
@@ -69,14 +88,19 @@ def search_movies(request):
     context = {'movies_data': movies_data}
     return render(request, 'cinova_app/search_result.html', context)
 
+
 def movie_detail(request, movie_id):
     kp = KinopoiskDev(token=TOKEN)
     movie = kp.find_one_movie(movie_id)
-    return render(request, 'cinova_app/movie_detail.html', {'movie': movie})
+
+    context = {'movie': movie}
+    return render(request, 'cinova_app/movie_detail.html', context)
+
 
 def series_detail(request, series_id):
     kp = KinopoiskDev(token=TOKEN)
     series = kp.find_one_movie(series_id)
+
     return render(request, 'cinova_app/series_detail.html', {'series': series})
 
 async def get_popular_movies_async() -> MovieDocsResponseDto:
@@ -84,10 +108,11 @@ async def get_popular_movies_async() -> MovieDocsResponseDto:
     item = await kp.afind_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=1),
-            MovieParams(keys=MovieField.LIMIT, value=4),
+            MovieParams(keys=MovieField.LIMIT, value=17),
             MovieParams(keys=MovieField.TYPE, value='movie'),
         ]
     )
+
     return item
 
 async def get_new_movies_async() -> MovieDocsResponseDto:
@@ -95,38 +120,27 @@ async def get_new_movies_async() -> MovieDocsResponseDto:
     item = await kp.afind_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=1),
-            MovieParams(keys=MovieField.LIMIT, value=4),
+            MovieParams(keys=MovieField.LIMIT, value=17),
             MovieParams(keys=MovieField.TYPE, value='movie'),
             MovieParams(keys=MovieField.YEAR, value='2023'),
         ]
     )
+
     return item
 
-async def get_action_movies_async() -> MovieDocsResponseDto:
-    kp = KinopoiskDev(token=TOKEN)
-    item = await kp.afind_many_movie(
-        params=[
-
-            MovieParams(keys=MovieField.PAGE, value=1),
-            MovieParams(keys=MovieField.LIMIT, value=4),
-            MovieParams(keys=MovieField.TYPE, value='movie'),
-            MovieParams(keys=MovieField.SELECT_FIELDS, value='боевик'),
-        ]
-
-    )
-    return item
-
+@login_required
 def add_to_favorites(request, movie_id):
 
     user = request.user
     favorite_movies = FavoriteMovie.objects.filter(user=user, movie_id=movie_id)
 
-    # If there are no matching records, create one.
     if not favorite_movies.exists():
         favorite_movie = FavoriteMovie(user=user, movie_id=movie_id)
         favorite_movie.save()
+
     return redirect('cinova:likes')
 
+@login_required
 def remove_from_favorites(request, movie_id):
     user = request.user
     favorite_movie = FavoriteMovie.objects.filter(user=user, movie_id=movie_id).first()
@@ -137,3 +151,11 @@ def remove_from_favorites(request, movie_id):
         print(f"No favorite movie found with id {movie_id}")
 
     return redirect('cinova:likes')
+
+async def get_random_async() -> Movie:
+    kp = KinopoiskDev(token=TOKEN)
+    item = await kp.arandom()
+    return item
+
+
+

@@ -1,0 +1,23 @@
+{% extends 'cinova_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<form action="{% url 'account_logout' %}" method="post">
+  {% csrf_token %}
+  <button type="submit">Выйти</button>
+</form>
+<h2>Изменить пароль</h2>
+<form action="{% url 'account_change_password' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Изменить пароль</button>
+</form>
+<h2>Сбросить пароль</h2>
+<form action="{% url 'account_reset_password' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Сбросить пароль</button>
+</form>
+
+
+{% endblock %}
