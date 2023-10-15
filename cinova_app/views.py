@@ -8,9 +8,8 @@ from kinopoisk_dev.model import MovieDocsResponseDto, Movie
 from .models import FavoriteMovie, Poster
 
 
-TOKEN = "D6688G0-ERW4WVC-J0M3Q74-9K2E2NE"
-# TOKEN = "ERVKSC2-VC14SN0-MMBQXZ9-Q29R7HV"
-# TOKEN = "56B40V5-8J9M118-HWS3PW9-NEE3B3Q"
+TOKEN = "YOUR_TOKEN"
+
 
 def home(request):
     posters = Poster.objects.all()
@@ -78,7 +77,7 @@ def search_movies(request):
     query = request.GET.get('q', '')
 
     if query:
-        API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86"
+        API_KEY = "YOUR_TOKEN"
         API_URL_SEARCH = f"https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword={query}"
         response = requests.get(API_URL_SEARCH, headers={"X-API-KEY": API_KEY})
         movies_data = response.json().get('films', [])
