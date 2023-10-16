@@ -4,7 +4,7 @@
 {% block content %}
 <section class="movies movie-grid">
     <div class="catalog-title">
-      КАТАЛОГ ФИЛЬМОВ
+      Фильмы по выбранному жанру: {{ genre }}
     </div>
 
   {% for movie in movies %}
@@ -33,6 +33,7 @@
       </div>
     </article>
   {% endfor %}
+</section>
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -50,6 +51,4 @@
         {% endif %}
     </span>
 </div>
-</section>
-
 {% endblock %}

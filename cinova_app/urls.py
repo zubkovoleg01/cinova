@@ -14,4 +14,5 @@ urlpatterns = [
     path('likes/<int:movie_id>/', views.add_to_favorites, name='add_to_favorites'),
     path('likes/remove/<int:movie_id>/', views.remove_from_favorites, name='remove_from_favorites'),
     path('search_movies/', views.search_movies, name='search_movies'),
+    path('filtered_movies/<str:genre>/', views.filtered_movies, name='filtered_movies'),
 ]

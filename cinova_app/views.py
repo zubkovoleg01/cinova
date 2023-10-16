@@ -8,7 +8,8 @@ from kinopoisk_dev.model import MovieDocsResponseDto, Movie
 from .models import FavoriteMovie, Poster
 
 
-TOKEN = "YOUR_TOKEN"
+TOKEN = "TOKEN"
+
 
 
 def home(request):
@@ -43,7 +44,7 @@ def movie_view(request):
     item = kp.find_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=page_number),
-            MovieParams(keys=MovieField.LIMIT, value=8),
+            MovieParams(keys=MovieField.LIMIT, value=16),
             MovieParams(keys=MovieField.TYPE, value='movie'),
         ]
     )
@@ -77,7 +78,7 @@ def search_movies(request):
     query = request.GET.get('q', '')
 
     if query:
-        API_KEY = "YOUR_TOKEN"
+        API_KEY = "TOKEN"
         API_URL_SEARCH = f"https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword={query}"
         response = requests.get(API_URL_SEARCH, headers={"X-API-KEY": API_KEY})
         movies_data = response.json().get('films', [])
@@ -107,7 +108,7 @@ async def get_popular_movies_async() -> MovieDocsResponseDto:
     item = await kp.afind_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=1),
-            MovieParams(keys=MovieField.LIMIT, value=17),
+            MovieParams(keys=MovieField.LIMIT, value=30),
             MovieParams(keys=MovieField.TYPE, value='movie'),
         ]
     )
@@ -119,7 +120,7 @@ async def get_new_movies_async() -> MovieDocsResponseDto:
     item = await kp.afind_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=1),
-            MovieParams(keys=MovieField.LIMIT, value=17),
+            MovieParams(keys=MovieField.LIMIT, value=30),
             MovieParams(keys=MovieField.TYPE, value='movie'),
             MovieParams(keys=MovieField.YEAR, value='2023'),
         ]
@@ -155,6 +156,29 @@ async def get_random_async() -> Movie:
     kp = KinopoiskDev(token=TOKEN)
     item = await kp.arandom()
     return item
+
+def filtered_movies(request, genre):
+    headers = {"X-API-KEY": TOKEN}
+
+    url = 'https://api.kinopoisk.dev/v1/movie'
+    params = {
+        "genres.name": genre,
+        "limit": request.GET.get('limit', 32),
+        "page": request.GET.get('page', 1),
+    }
+
+    response = requests.get(url, params=params, headers=headers)
+    movies = response.json().get('docs', [])
+
+    paginator = Paginator(movies, 16)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    context = {'movies': page_obj, 'genre': genre, 'page_obj': page_obj}
+    return render(request, 'cinova_app/filtered_movies.html', context)
+
+
+
 
 
 

@@ -24,14 +24,24 @@
     <a class="link" href="#new-slider">
         <div class="genre-block" id="genre-new"><i class="fas fa-fire"></i>&nbsp;Новые</div>
     </a>
-    <a class="link" href="#">
+    <a class="link" href="{% url 'cinova:filtered_movies' 'боевик' %}">
         <div class="genre-block"><i class="fas fa-crosshairs"></i>&nbsp;Боевик</div>
     </a>
-    <div class="genre-block" id="genre--comedy"><i class="fas fa-dice"></i>&nbsp;Комедия</div>
-    <div class="genre-block" id="genre--horror"><i class="fas fa-ghost"></i>&nbsp;Ужасы</div>
-    <div class="genre-block" id="genre--adventure"><i class="fas fa-earth-america"></i>&nbsp;Приключения</div>
-    <div class="genre-block" id="genre--mystery"><i class="fas fa-user-secret"></i>&nbsp;Детектив</div>
-    <div class="genre-block" id="genre--sci-fi"><i class="fas fa-rocket"></i>&nbsp;Фантастика</div>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'комедия' %}">
+        <div class="genre-block" id="genre--comedy"><i class="fas fa-dice"></i>&nbsp;Комедия</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'ужасы' %}">
+        <div class="genre-block" id="genre--horror"><i class="fas fa-ghost"></i>&nbsp;Ужасы</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'приключения' %}">
+        <div class="genre-block" id="genre--adventure"><i class="fas fa-earth-america"></i>&nbsp;Приключения</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'детектив' %}">
+        <div class="genre-block" id="genre--mystery"><i class="fas fa-user-secret"></i>&nbsp;Детектив</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'фантастика' %}">
+        <div class="genre-block" id="genre--sci-fi"><i class="fas fa-rocket"></i>&nbsp;Фантастика</div>
+    </a>
 </section>
 
 
