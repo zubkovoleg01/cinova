@@ -1,0 +1,26 @@
+{% extends 'cinova_app/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="catalog-title">
+        Отзывы
+    </div>
+    {% if reviews.docs %}
+        <ul>
+            {% for review in reviews.docs %}
+                <li>
+                    <p>Фильм ID: {{ review.movieId }}</p>
+                    <p>Заголовок: {{ review.title }}</p>
+                    <p>Тип: {{ review.type }}</p>
+                    <p>Отзыв: {{ review.review }}</p>
+                    <p>Дата: {{ review.date }}</p>
+                    <p>Автор: {{ review.author }}</p>
+                    <p>Рейтинг пользователя: {{ review.userRating }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Пока нет отзывов к этому фильму.</p>
+    {% endif %}
+{% endblock %}

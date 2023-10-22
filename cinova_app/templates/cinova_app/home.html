@@ -42,11 +42,61 @@
     <a class="link" href="{% url 'cinova:filtered_movies' 'фантастика' %}">
         <div class="genre-block" id="genre--sci-fi"><i class="fas fa-rocket"></i>&nbsp;Фантастика</div>
     </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'мультфильмы' %}">
+        <div class="genre-block" id="genre--animation"><i class="fas fa-paint-brush"></i>&nbsp;Мультфильмы</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'триллеры' %}">
+        <div class="genre-block" id="genre--thriller"><i class="fas fa-bomb"></i>&nbsp;Триллеры</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'мелодрамы' %}">
+        <div class="genre-block" id="genre--romance"><i class="fas fa-heart"></i>&nbsp;Мелодрамы</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'военные' %}">
+        <div class="genre-block" id="genre--war"><i class="fas fa-shield-alt"></i>&nbsp;Военные</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'семейные' %}">
+        <div class="genre-block" id="genre--family"><i class="fas fa-home"></i>&nbsp;Семейные</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'исторические' %}">
+        <div class="genre-block" id="genre--history"><i class="fas fa-scroll"></i>&nbsp;Исторические</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'драмы' %}">
+        <div class="genre-block" id="genre--drama"><i class="fas fa-theater-masks"></i>&nbsp;Драмы</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'документальные' %}">
+        <div class="genre-block" id="genre--documentary"><i class="fas fa-film"></i>&nbsp;Документальные</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'биографии' %}">
+        <div class="genre-block" id="genre--biography"><i class="fas fa-portrait"></i>&nbsp;Биографии</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'спортивные' %}">
+        <div class="genre-block" id="genre--sport"><i class="fas fa-running"></i>&nbsp;Спортивные</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'детские' %}">
+        <div class="genre-block" id="genre--children"><i class="fas fa-child"></i>&nbsp;Детские</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'вестерны' %}">
+        <div class="genre-block" id="genre--western"><i class="fas fa-hat-cowboy"></i>&nbsp;Вестерны</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'мюзиклы' %}">
+        <div class="genre-block" id="genre--musical"><i class="fas fa-music"></i>&nbsp;Мюзиклы</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'аниме' %}">
+        <div class="genre-block" id="genre--anime"><i class="fas fa-dragon"></i>&nbsp;Аниме</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'реальное-тв' %}">
+        <div class="genre-block" id="genre--reality-tv"><i class="fas fa-tv"></i>&nbsp;Реальное ТВ</div>
+    </a>
+    <a class="link" href="{% url 'cinova:filtered_movies' 'ток-шоу' %}">
+        <div class="genre-block" id="genre--talk-show"><i class="fas fa-microphone"></i>&nbsp;Ток-шоу</div>
+    </a>
+    <button class="prev-arrow"><i class="fas fa-chevron-left"></i></button>
+    <button class="next-arrow"><i class="fas fa-chevron-right"></i></button>
 </section>
 
 
 <section id="popular-slider" class="popular-movie movie-grid">
-    <div class="catalog-title">
+    <div class="catalog-title home-title">
         Популярные фильмы
     </div>
     <div class="slider-container" style="display: flex; overflow: hidden;">
@@ -66,9 +116,10 @@
                 <div class="icons">
                     <form action="{% url 'cinova:add_to_favorites' movie.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit"><i class="fas fa-heart"></i></button>
+                        <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
                     </form>
                     <a href="{% url 'cinova:movie_detail' movie.id %}"><i class="fas fa-eye"></i></a>
+                    <a href="{% url 'cinova:reviews' movie.id %}"><i class="fas fa-comments"></i></a>
                 </div>
             </div>
         </article>
@@ -79,7 +130,7 @@
 </section>
 
 <section id="new-slider" class="new-movies movie-grid">
-    <div class="catalog-title">
+    <div class="catalog-title home-title">
         Новинки
     </div>
     <div class="slider-container" style="display: flex; overflow: hidden;">
@@ -99,9 +150,10 @@
                 <div class="icons">
                     <form action="{% url 'cinova:add_to_favorites' movie.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit"><i class="fas fa-heart"></i></button>
+                        <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
                     </form>
                     <a href="{% url 'cinova:movie_detail' movie.id %}"><i class="fas fa-eye"></i></a>
+                    <a href="{% url 'cinova:reviews' movie.id %}"><i class="fas fa-comments"></i></a>
                 </div>
             </div>
         </article>
@@ -112,10 +164,11 @@
 </section>
 
 <section class="random-film movie-grid">
-    <div class="catalog-title">
-        Ваш случайный фильм на сегодня
+    <div class="catalog-title home-title">
+        Ваши случайные фильмы на сегодня
     </div>
-    <article class="movie-card random">
+    {% for random_film in random_films %}
+    <article class="movie-card">
         <img src="{{ random_film.poster.url }}" alt="{{ random_film.name }}">
         <div class="content">
             <h1>{{ random_film.name }}</h1>
@@ -131,12 +184,14 @@
             <div class="icons">
                 <form action="{% url 'cinova:add_to_favorites' random_film.id %}" method="post">
                     {% csrf_token %}
-                    <button type="submit"><i class="fas fa-heart"></i></button>
+                    <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
                 </form>
                 <a href="{% url 'cinova:movie_detail' random_film.id %}"><i class="fas fa-eye"></i></a>
+                <a href="{% url 'cinova:reviews' random_film.id %}"><i class="fas fa-comments"></i></a>
             </div>
         </div>
     </article>
+    {% endfor %}
 </section>
 <div class="scroll-to-top">
     <button id="myBtn" title="Наверх">

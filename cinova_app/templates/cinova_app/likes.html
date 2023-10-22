@@ -2,25 +2,42 @@
 {% load static %}
 
 {% block content %}
-<section class="favorite-movies">
-    <h1>Избранные фильмы</h1>
-    {% if favorite_movies %}
-    <ul>
-        {% for favorite_movie in favorite_movies %}
-        <li>
-            <h3>{{ favorite_movie.movie_id }}</h3>
-            <div class="icons">
-                <form action="{% url 'cinova:remove_from_favorites' favorite_movie.movie_id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit"><i class="fas fa-times"></i></button>
-                </form>
-                <a href="{% url 'cinova:movie_detail' favorite_movie.movie_id %}"><i class="fas fa-eye"></i></a>
+<section class="movies movie-grid">
+    <div class="catalog-title">
+        Избранные фильмы
+    </div>
+    {% if movies_info %}
+        {% for movie_info in movies_info %}
+        <!--  <p>{{ movie.externalId.kpHD }}</p>-->
+        <article class="movie-card ">
+            <img src="{{ movie_info.movie_info.poster.url }}" alt="{{ movie_info.movie_info.name }}">
+
+            <div class="content">
+                <h1>{{ movie_info.movie_info.name }}</h1>
+
+                <div class="infos">
+                    <span>{{ movie_info.movie_info.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie_info.movie_info.year }}&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie_info.movie_info.movieLength }}</span>
+                </div>
+
+                <p class="synopsis">
+                    {{ movie_info.movie_info.description|truncatechars:250 }}
+                </p>
+
+                <div class="icons">
+                    <form action="{% url 'cinova:remove_from_favorites' movie_info.movie_id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="icon-button"><i class="fas fa-times"></i></button>
+                    </form>
+                    <a href="{% url 'cinova:movie_detail' movie_info.movie_id %}"><i class="fas fa-eye"></i></a>
+                    <a href="{% url 'cinova:reviews' movie_info.movie.id %}"><i class="fas fa-comments"></i></a>
+                </div>
             </div>
-        </li>
+        </article>
         {% endfor %}
-    </ul>
     {% else %}
     <p>У вас пока нет избранных фильмов.</p>
     {% endif %}
 </section>
 {% endblock %}
+
+

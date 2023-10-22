@@ -26,9 +26,10 @@
         <div class="icons">
             <form action="{% url 'cinova:add_to_favorites' movie.id %}" method="post">
                 {% csrf_token %}
-                <button type="submit"><i class="fas fa-heart"></i></button>
+                <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
             </form>
           <a href="{% url 'cinova:movie_detail' movie.id %}"><i class="fas fa-eye"></i></a>
+            <a href="{% url 'cinova:reviews' movie.id %}"><i class="fas fa-comments"></i></a>
         </div>
       </div>
     </article>

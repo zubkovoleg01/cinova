@@ -143,5 +143,34 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollButton.addEventListener('click', scrollToTop);
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    var genreSection = document.querySelector('.genres-section');
+    var genreBlocks = document.querySelectorAll('.genre-block');
+    var prevArrow = document.querySelector('.prev-arrow');
+    var nextArrow = document.querySelector('.next-arrow');
+    var currentIndex = 0;
+    var slidesPerPage = 8;
 
+    function showSlides(startIndex) {
+        genreBlocks.forEach(function(block, i) {
+            if (i >= startIndex && i < startIndex + slidesPerPage) {
+                block.style.display = 'inline-block';
+            } else {
+                block.style.display = 'none';
+            }
+        });
+    }
+
+    prevArrow.addEventListener('click', function() {
+        currentIndex = (currentIndex <= 0) ? genreBlocks.length - slidesPerPage : currentIndex - slidesPerPage;
+        showSlides(currentIndex);
+    });
+
+    nextArrow.addEventListener('click', function() {
+        currentIndex = (currentIndex >= genreBlocks.length - slidesPerPage) ? 0 : currentIndex + slidesPerPage;
+        showSlides(currentIndex);
+    });
+
+    showSlides(currentIndex);
+});
 
