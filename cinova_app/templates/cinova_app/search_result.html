@@ -17,7 +17,17 @@
                         <h1>{{ movie.nameRu }} </h1>
 
                           <div class="infos">
-                            <span>{{ movie.rating }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;&nbsp;</span>
+                              <span>
+                                    {% if movie.rating %}
+                                        {{ movie.rating }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                                    {% endif %}
+                                    {% if movie.year %}
+                                        ·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% endif %}
+                                    {% if movie.filmLength %}
+                                        ·&nbsp;&nbsp;{{ movie.filmLength}}м
+                                    {% endif %}
+                              </span>
                           </div>
 
                           <p class="synopsis">

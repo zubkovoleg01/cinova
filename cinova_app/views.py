@@ -203,6 +203,7 @@ def get_review(request, movie_id) -> ReviewDocsResponseDto:
         ]
     )
     reviews = item
+
     return render(request, 'cinova_app/reviews.html', {'reviews': reviews})
 
 

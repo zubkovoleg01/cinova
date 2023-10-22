@@ -16,7 +16,21 @@
                 <h1>{{ movie_info.movie_info.name }}</h1>
 
                 <div class="infos">
-                    <span>{{ movie_info.movie_info.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie_info.movie_info.year }}&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie_info.movie_info.movieLength }}</span>
+                   <span>
+                {% if movie_info.rating.imdb %}
+                    {{ movie_info.rating.imdb }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                {% else %}
+                    {% if movie_info.rating.kp %}
+                        {{ movie_info.rating.kp|floatformat:1 }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                    {% endif %}
+                {% endif %}
+                        {% if movie_info.year %}
+                            ·&nbsp;&nbsp;{{ movie_info.year }}&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        {% if movie_info.movieLength %}
+                            ·&nbsp;&nbsp;{{ movie_info.movieLength }}м
+                        {% endif %}
+                    </span>
                 </div>
 
                 <p class="synopsis">

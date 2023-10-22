@@ -107,7 +107,19 @@
                 <h1>{{ movie.name }}</h1>
                 <div class="infos">
                     <span>
-                        {{ movie.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.movieLength }}м
+                {% if movie.rating.imdb %}
+                    {{ movie.rating.imdb }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                {% else %}
+                    {% if movie.rating.kp %}
+                        {{ movie.rating.kp|floatformat:1 }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                    {% endif %}
+                {% endif %}
+                        {% if movie.year %}
+                            ·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        {% if movie.movieLength %}
+                            ·&nbsp;&nbsp;{{ movie.movieLength }}м
+                        {% endif %}
                     </span>
                 </div>
                 <p class="synopsis">
@@ -140,9 +152,21 @@
             <div class="content">
                 <h1>{{ movie.name }}</h1>
                 <div class="infos">
-                    <span>
-                        {{ movie.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;{{ movie.movieLength }}м
-                    </span>
+                <span>
+                {% if movie.rating.imdb %}
+                    {{ movie.rating.imdb }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                {% else %}
+                    {% if movie.rating.kp %}
+                        {{ movie.rating.kp|floatformat:1 }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                    {% endif %}
+                {% endif %}
+                    {% if movie.year %}
+                        ·&nbsp;&nbsp;{{ movie.year }}&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    {% if movie.movieLength %}
+                        ·&nbsp;&nbsp;{{ movie.movieLength }}м
+                    {% endif %}
+                </span>
                 </div>
                 <p class="synopsis">
                     {{ movie.description|truncatechars:250 }}
@@ -174,9 +198,21 @@
             <h1>{{ random_film.name }}</h1>
 
             <div class="infos">
-                    <span>
-                        {{ random_film.rating.kp }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;·&nbsp;&nbsp;{{ random_film.year }}&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;{{ random_film.movieLength }}м
-                    </span>
+                <span>
+                {% if random_film.rating.imdb %}
+                    {{ random_film.rating.imdb }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                {% else %}
+                    {% if random_film.rating.kp %}
+                        {{ random_film.rating.kp|floatformat:1 }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
+                    {% endif %}
+                {% endif %}
+                    {% if random_film.year %}
+                        ·&nbsp;&nbsp;{{ random_film.year }}&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    {% if random_film.movieLength %}
+                        ·&nbsp;&nbsp;{{ random_film.movieLength }}м
+                    {% endif %}
+                </span>
             </div>
             <p class="synopsis">
                 {{ random_film.description|truncatechars:250 }}
