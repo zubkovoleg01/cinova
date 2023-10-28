@@ -1,23 +1,20 @@
 {% extends "cinova_app/base.html" %}
 
-{% load i18n %}
-
-{% block head_title %}{% trans "Verify Your Email Address" %}{% endblock head_title %}
 
 {% block content %}
-<h1>{% trans "Verify Your Email Address" %}</h1>
+<h1>Подтвердите свой адрес электронной почты</h1>
 
 {% url 'account_email' as email_url %}
 
-<p>{% blocktrans %}This part of the site requires us to verify that
-you are who you claim to be. For this purpose, we require that you
-verify ownership of your email address. {% endblocktrans %}</p>
+<p>Эта часть сайта требует, чтобы мы подтвердили, что
+вы тот, за кого себя выдаете. Для этой цели мы требуем, чтобы вы
+подтвердили право собственности на свой адрес электронной почты.</p>
 
-<p>{% blocktrans %}We have sent an email to you for
-verification. Please click on the link inside that email. If you do not see the verification email in your main inbox, check your spam folder. Otherwise
-contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+<p>Мы отправили вам электронное письмо для
+подтверждения. Пожалуйста, перейдите по ссылке внутри этого письма. Если вы не видите письмо с подтверждением в своем основном почтовом ящике, проверьте папку "Спам". В противном
+случае свяжитесь с нами, если вы не получите его в течение нескольких минут.</p>
 
-<p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{ email_url }}">change your email address</a>.{% endblocktrans %}</p>
+<p><strong>Примечание:</strong> вы все еще можете <a href="{{ email_url }}">изменить свою почту</a>.</p>
 
 
 {% endblock content %}

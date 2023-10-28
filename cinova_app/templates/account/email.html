@@ -1,13 +1,12 @@
 {% extends "cinova_app/base.html" %}
 
-{% load i18n %}
 
-{% block head_title %}{% trans "Email Addresses" %}{% endblock head_title %}
 
 {% block content %}
-    <h1>{% trans "Email Addresses" %}</h1>
+<div class="form-container">
+    <h1>Почта</h1>
 {% if emailaddresses %}
-<p>{% trans 'The following email addresses are associated with your account:' %}</p>
+<h3><p>С вашей учетной записью связаны следующие адреса электронной почты:</p></h3>
 
 <form action="{% url 'account_email' %}" class="email_list" method="post">
 {% csrf_token %}
@@ -21,19 +20,19 @@
 
 {{ emailaddress.email }}
     {% if emailaddress.verified %}
-    <span class="verified">{% trans "Verified" %}</span>
+    <span class="verified">Подтвержден</span>
     {% else %}
-    <span class="unverified">{% trans "Unverified" %}</span>
+    <span class="unverified">Неподтвержден</span>
     {% endif %}
-      {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
+      {% if emailaddress.primary %}<span class="primary">Основной</span>{% endif %}
 </label>
 </div>
   {% endfor %}
 
 <div class="buttonHolder">
-      <button class="secondaryAction" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
-      <button class="secondaryAction" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-      <button class="primaryAction" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+      <button class="secondaryAction submit-btn" type="submit" name="action_primary" >Сделать основным</button>
+      <button class="secondaryAction submit-btn" type="submit" name="action_send" >Отправить подтверждение на почту</button>
+      <button class="primaryAction submit-btn" type="submit" name="action_remove" >Удалить</button>
 </div>
 
 </fieldset>
@@ -44,22 +43,22 @@
 {% endif %}
 
   {% if can_add_email %}
-    <h2>{% trans "Add Email Address" %}</h2>
+    <h1>Добавить почту</h1>
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
         {% csrf_token %}
         {{ form.as_p }}
-        <button name="action_add" type="submit">{% trans "Add Email" %}</button>
+        <button class="submit-btn" name="action_add" type="submit">Добавить почту</button>
     </form>
   {% endif %}
-
+</div>
 {% endblock content %}
 
 
 {% block extra_body %}
 <script type="text/javascript">
 (function() {
-  var message = "{% trans 'Do you really want to remove the selected email address?' %}";
+  var message = "Вы действительно хотите удалить эту почту?";
   var actions = document.getElementsByName('action_remove');
   if (actions.length) {
     actions[0].addEventListener("click", function(e) {

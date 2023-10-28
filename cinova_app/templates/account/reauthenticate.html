@@ -1,14 +1,10 @@
 {% extends "cinova_app/base.html" %}
 
-{% load i18n %}
-
-{% block head_title %}{% trans "Confirm Access" %}{% endblock head_title %}
-
 {% block content %}
 
-<h1>{% trans "Confirm Access" %}</h1>
+<h1>Подтвердите доступ</h1>
 
-<p>{% blocktranslate %}To safeguard the security of your account, please enter your password:{% endblocktranslate %}</p>
+<p>Чтобы обеспечить безопасность вашей учетной записи, пожалуйста, введите свой пароль:</p>
 
 <form class="reauthenticate" method="POST" action="{% url 'account_reauthenticate' %}">
   {% csrf_token %}
@@ -16,7 +12,7 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <button type="submit">{% trans "Confirm" %}</button>
+  <button type="submit">Подтвердить</button>
 </form>
 
 {% endblock content %}

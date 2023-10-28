@@ -1,0 +1,7 @@
+{% autoescape off %}Здравствуйте! Это CinovaCinema!
+
+{% block content %}{% endblock content %}
+
+Спасибо что выбрали нас!
+{{ site_domain }}
+{% endautoescape %}

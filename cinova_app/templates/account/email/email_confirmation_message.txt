@@ -1,0 +1,6 @@
+{% extends "account/email/base_message.txt" %}
+{% load account %}
+
+{% block content %}{% autoescape off %}{% user_display user as user_display %}Вы получаете это электронное письмо, потому что пользователь {{ user_display }} указал ваш адрес электронной почты для регистрации учетной записи на CinovaCinema.
+
+Чтобы подтвердить аккаунт, перейдите по ссылке {{ activate_url }}{% endautoescape %}{% endblock content %}

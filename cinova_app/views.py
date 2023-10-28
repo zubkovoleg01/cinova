@@ -195,16 +195,17 @@ def filtered_movies(request, genre):
 
 def get_review(request, movie_id) -> ReviewDocsResponseDto:
     kp = KinopoiskDev(token=TOKEN)
+    page_number = request.GET.get('page', 1)
     item = kp.review(
         params=[
             ReviewParams(keys=ReviewField.MOVIE_ID, value=movie_id),
-            ReviewParams(keys=ReviewField.PAGE, value=1),
-            ReviewParams(keys=ReviewField.LIMIT, value=10),
+            MovieParams(keys=MovieField.PAGE, value=page_number),
+            ReviewParams(keys=ReviewField.LIMIT, value=3),
         ]
     )
-    reviews = item
+    reviews = item.docs
+    paginator = Paginator(reviews, 2)
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'cinova_app/reviews.html', {'reviews': reviews})
-
-
+    return render(request, 'cinova_app/reviews.html', {'reviews': reviews, 'page_obj': page_obj})
 

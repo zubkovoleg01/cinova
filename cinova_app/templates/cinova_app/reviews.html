@@ -2,42 +2,53 @@
 {% load static %}
 
 {% block content %}
-
     <div class="catalog-title">
-        Отзывы
+        Рецензии зрителей
     </div>
-    {% if reviews.docs %}
+    {% if reviews %}
         <ul>
-            {% for review in reviews.docs %}
-                <li>
-                    <p>Фильм ID: {{ review.movieId }}</p>
-                    <p>Заголовок: {{ review.title }}</p>
-                    <p>Тип: {{ review.type }}</p>
-                    <p>Отзыв: {{ review.review }}</p>
-                    <p>Дата: {{ review.date }}</p>
-                    <p>Автор: {{ review.author }}</p>
-                    <p>Рейтинг пользователя: {{ review.userRating }}</p>
-                </li>
+            {% for review in reviews %}
+                <div class="review-container">
+                    <li class="review-item">
+                        <div class="left-content">
+                            {% if review.author %}
+                                <p class="review-up">{{ review.author }}</p>
+                            {% endif %}
+                            {% if review.type == 'Позитивный' %}
+                                <i class="fas fa-thumbs-up review-up-icon" style="color: green;"></i>
+                            {% elif review.type == 'Негативный' %}
+                                <i class="fas fa-thumbs-down review-up-icon" style="color: red;"></i>
+                            {% endif %}
+                            <p class="review-up">{{ review.date|slice:":10"}}</p>
+                        </div>
+                        <div class="right-content">
+                            {% if review.title %}
+                                <p>{{ review.title }}</p>
+                            {% endif %}
+                            <p>{{ review.review }}</p>
+                        </div>
+                    </li>
+                </div>
             {% endfor %}
         </ul>
     {% else %}
         <p>Пока нет отзывов к этому фильму.</p>
     {% endif %}
-<div class="pagination">
+    <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1">первая</a>
-            <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+            <a href="?page=1"><i class="fas fa-angle-double-left"></i></a>
+            <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
         {% endif %}
 
         <span class="current">
-            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">следующая</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">последняя</a>
+            <a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}"><i class="fas fa-angle-double-right"></i></a>
         {% endif %}
     </span>
-</div>
+    </div>
 {% endblock %}

@@ -2,22 +2,35 @@
 {% load static %}
 
 {% block content %}
-<form action="{% url 'account_logout' %}" method="post">
-  {% csrf_token %}
-  <button type="submit">Выйти</button>
-</form>
-<h2>Изменить пароль</h2>
-<form action="{% url 'account_change_password' %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Изменить пароль</button>
-</form>
-<h2>Сбросить пароль</h2>
-<form action="{% url 'account_reset_password' %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Сбросить пароль</button>
-</form>
+<div class="account-container">
+      <form action="{% url 'account_email' %}" method="post">
+        {% csrf_token %}
+        {{ email_form.as_p }}
+        <button class="form-account" type="submit">Почта <i class="fas fa-envelope"></i></button>
+  </form>
+
+
+
+  <form action="{% url 'account_change_password' %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="form-account" type="submit">Изменить пароль <i class="fas fa-key"></i></button>
+  </form>
+
+
+  <form action="{% url 'account_reset_password' %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="form-account" type="submit">Сбросить пароль <i class="fas fa-unlock"></i></button>
+  </form>
+
+      <form action="{% url 'account_logout' %}" method="post">
+     {% csrf_token %}
+    <button class="form-account" type="submit">Выйти <i class="fas fa-sign-out-alt"></i></button>
+  </form>
+
+</div>
+
 
 
 {% endblock %}
