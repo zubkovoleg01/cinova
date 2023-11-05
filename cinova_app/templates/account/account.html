@@ -30,7 +30,26 @@
   </form>
 
 </div>
-
+<div class="user-comments">
+    <div class="catalog-title">
+        Ваши комментарии
+    </div>
+    <ul class="comment-list">
+        {% if user_comments %}
+            {% for reviews_from_site in user_comments %}
+                <li class="comment-item">
+                    <div class="comment-title">{{ reviews_from_site.title }}</div>
+                    <div class="comment-body">{{ reviews_from_site.review }}</div>
+                    <a href="{% url 'cinova:delete_review' reviews_from_site.movie_id %}" class="delete-link"><i class="fas fa-times"></i></a>
+                </li>
+            {% endfor %}
+        {% else %}
+        <div class="no-contents">
+            <p>У вас пока нет комментариев</p>
+            </div>
+        {% endif %}
+    </ul>
+</div>
 
 
 {% endblock %}

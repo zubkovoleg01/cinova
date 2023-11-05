@@ -2,13 +2,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import requests
 import asyncio
+from django.utils import timezone
 from django.core.paginator import Paginator
 from kinopoisk_dev import KinopoiskDev, MovieField, MovieParams, ReviewField, ReviewParams
 from kinopoisk_dev.model import MovieDocsResponseDto, Movie, ReviewDocsResponseDto
-from .models import FavoriteMovie, Poster
+from .models import FavoriteMovie, Poster, Comment
+from .forms import CommentForm
 
-
-
+TOKEN = "D6688G0-ERW4WVC-J0M3Q74-9K2E2NE"
+# TOKEN = "ERVKSC2-VC14SN0-MMBQXZ9-Q29R7HV"
+# TOKEN = "56B40V5-8J9M118-HWS3PW9-NEE3B3Q"
+# TOKEN = "NG7G6ZK-BQ9MWBT-N2XEAZ3-D7RJJQV"
+# TOKEN = "7GQ13AW-HGMMVMK-GQWF3ZD-YN81Q38"
+# TOKEN = 'GDCFXRR-C624W2R-G599C2A-V0RRAQF'
 
 
 def home(request):
@@ -51,7 +57,9 @@ def thank_you(request):
 
 @login_required
 def account_view(request):
-    return render(request, 'account/account.html' )
+    user_comments = Comment.objects.filter(author=request.user).order_by('-date')
+    return render(request, 'account/account.html', {'user_comments': user_comments})
+
 
 def movie_view(request):
     kp = KinopoiskDev(token=TOKEN)
@@ -93,7 +101,7 @@ def search_movies(request):
     query = request.GET.get('q', '')
 
     if query:
-        API_KEY = ""
+        API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86"
         API_URL_SEARCH = f"https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword={query}"
         response = requests.get(API_URL_SEARCH, headers={"X-API-KEY": API_KEY})
         movies_data = response.json().get('films', [])
@@ -204,8 +212,33 @@ def get_review(request, movie_id) -> ReviewDocsResponseDto:
         ]
     )
     reviews = item.docs
+
+    reviews_from_site = Comment.objects.filter(movie_id=movie_id).order_by('-date')
+
     paginator = Paginator(reviews, 2)
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'cinova_app/reviews.html', {'reviews': reviews, 'page_obj': page_obj})
+    return render(request, 'cinova_app/reviews.html', {'reviews': reviews, 'page_obj': page_obj, 'reviews_from_site': reviews_from_site})
 
+def add_review(request, movie_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.date = timezone.now()
+            comment.movie_id = movie_id
+            comment.save()
+            return redirect('cinova:reviews', movie_id)
+    else:
+        form = CommentForm()
+
+    return render(request, 'cinova_app/add_review.html', {'form': form, 'movie_id': movie_id})
+
+def delete_review(request, movie_id):
+    reviews_from_site = Comment.objects.filter(movie_id=movie_id, author=request.user)
+    if reviews_from_site.exists():
+        review_to_delete = reviews_from_site[0]
+        review_to_delete.delete()
+
+    return redirect('cinova:account')

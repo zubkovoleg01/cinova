@@ -3,9 +3,6 @@
 
 {% block content %}
 <section class="movies movie-grid">
-    <div class="catalog-title">
-        Избранные фильмы
-    </div>
     {% if movies_info %}
         {% for movie_info in movies_info %}
         <!--  <p>{{ movie.externalId.kpHD }}</p>-->
@@ -43,13 +40,15 @@
                         <button type="submit" class="icon-button"><i class="fas fa-times"></i></button>
                     </form>
                     <a href="{% url 'cinova:movie_detail' movie_info.movie_id %}"><i class="fas fa-eye"></i></a>
-                    <a href="{% url 'cinova:reviews' movie_info.movie.id %}"><i class="fas fa-comments"></i></a>
+                    <a href="{% url 'cinova:reviews' movie_info.movie_id %}"><i class="fas fa-comments"></i></a>
                 </div>
             </div>
         </article>
         {% endfor %}
     {% else %}
-    <p>У вас пока нет избранных фильмов.</p>
+    <div class="catalog-title no-content">
+        У вас еще нет избранного
+    </div>
     {% endif %}
 </section>
 {% endblock %}

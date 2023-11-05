@@ -66,8 +66,10 @@
         </div>
         <div class="movie-button">
                 <a href="{% url 'cinova:reviews' movie.id %}">Комментарии</a>
-
         </div>
+            <div class="movie-button">
+                <a href="{% if user.is_authenticated %}{% url 'cinova:add_review' movie.id %}{% else %}{% url 'account_login' %}{% endif %}">Оставить комментарий</a>
+            </div>
         </div>
     </div>
   </div>

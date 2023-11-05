@@ -39,32 +39,34 @@
               {% endif %}
             </div>
         <div class="watchabilitys">
+
             {% if series.watchability and series.watchability.items %}
-        {% for watchability_item in series.watchability.items %}
-          {% if watchability_item.logo and watchability_item.name and watchability_item.url %}
-            <a href="{{ watchability_item.url }}"><img class="watchability-img" src="{{ watchability_item.logo.url }}" alt="{{ watchability_item.name }}"></a>
-
-          {% endif %}
-        {% endfor %}
-    {% endif %}
+                {% for watchability_item in series.watchability.items %}
+                  {% if watchability_item.logo and watchability_item.name and watchability_item.url %}
+                    <a href="{{ watchability_item.url }}"><img class="watchability-img" src="{{ watchability_item.logo.url }}" alt="{{ watchability_item.name }}"></a>
+                  {% endif %}
+                {% endfor %}
+            {% endif %}
             </div>
-                {% if series.videos and series.videos.trailers %}
         <div class="movie-buttons">
-        <div class="movie-button">
-          <a href="{{ series.videos.trailers.0.url }}" class="watch-trailer-link">Смотреть трейлер</a>
-        </div>
-        {% endif %}
-        <div class="movie-button">
-            <form action="{% url 'cinova:add_to_favorites' series.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="icon-button">Добавить в избранное</button>
-            </form>
-        </div>
-        <div class="movie-button">
-                <a href="{% url 'cinova:reviews' series.id %}">Комментарии</a>
-
-        </div>
-        </div>
+            {% if series.videos and series.videos.trailers %}
+                <div class="movie-button">
+                  <a href="{{ series.videos.trailers.0.url }}" class="watch-trailer-link">Смотреть трейлер</a>
+                </div>
+            {% endif %}
+            <div class="movie-button">
+                <form action="{% url 'cinova:add_to_favorites' series.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="icon-button">Добавить в избранное</button>
+                </form>
+            </div>
+            <div class="movie-button">
+                    <a href="{% url 'cinova:reviews' series.id %}">Комментарии</a>
+            </div>
+            <div class="movie-button">
+                <a href="{% url 'cinova:add_review' series.id %}">Оставить комментарий</a>
+            </div>
+            </div>
     </div>
   </div>
     <div class="persons-slider">
@@ -125,6 +127,7 @@
             </form>
           <a href="{% url 'cinova:movie_detail' similar_movie.id %}"><i class="fas fa-eye"></i></a>
             <a href="{% url 'cinova:reviews' similar_movie.id %}"><i class="fas fa-comments"></i></a>
+
         </div>
       </div>
     </article>

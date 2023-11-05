@@ -5,6 +5,33 @@
     <div class="catalog-title">
         Рецензии зрителей
     </div>
+        {% if reviews_from_site %}
+            <ul>
+                {% for review in reviews_from_site %}
+                    <div class="review-container">
+                        <li class="review-item">
+                            <div class="left-content">
+                                {% if review.author %}
+                                    <p class="review-up">{{ review.author }}</p>
+                                {% endif %}
+                                {% if review.type == 'positive' %}
+                                    <i class="fas fa-thumbs-up review-up-icon" style="color: green;"></i>
+                                {% elif review.type == 'negative' %}
+                                    <i class="fas fa-thumbs-down review-up-icon" style="color: red;"></i>
+                                {% endif %}
+                                <p class="review-up">{{ review.date|date:"Y-m-d" }}</p>
+                            </div>
+                            <div class="right-content">
+                                {% if review.title %}
+                                    <p>{{ review.title }}</p>
+                                {% endif %}
+                                <p>{{ review.review }}</p>
+                            </div>
+                        </li>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% if reviews %}
         <ul>
             {% for review in reviews %}
@@ -32,7 +59,7 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>Пока нет отзывов к этому фильму.</p>
+        <p class="no-content">Пока нет отзывов к этому фильму.</p>
     {% endif %}
     <div class="pagination">
     <span class="step-links">
