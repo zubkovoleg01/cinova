@@ -1,77 +1,95 @@
-Система для управления библиотекой видеоконтента cinova (фильмы, сериалы)
+Cinova video content library management system.
 
-Этот проект представляет собой веб-приложение на Django для управления библиотекой фильмов и сериалов.
-
-_______________________________________________________________________________________________________________________________________________________________
-
-Функциональности
-
-● Регистрация и Аутентификация:
-
-Пользователи могут регистрироваться и аутентифицироваться в системе.
-
-
-● Профили Пользователей:
-
-Пользователи имеют свои профили с возможностью редактирования и загрузки аватаров.
-
-● Добавление и Редактирование Фильмов и Сериалов:
-
-Администраторы могут добавлять и редактировать информацию о фильмах и сериалах, включая название, год выпуска, рейтинг и т.д.
-
-● Система Рецензий и Оценок:
-
-Пользователи могут оставлять рецензии, оценивать фильмы и сериалы.
-
-● Создание и Управление Списками:
-
-Пользователи могут создавать собственные списки (например, "Избранное", "Просмотреть позже").
-
-● Мультиязычность:
-
-Поддержка различных языков интерфейса для удобства пользователей.
-
-● Рекомендации и Персонализированный Контент:
-
-Предложение фильмов на основе истории просмотров и предпочтений пользователей.
-
-● Система Уведомлений:
-
-Уведомления о новых рецензиях, оценках и рекомендациях.
-
+This project is a Django web application for managing a library of movies and TV series.
 
 _______________________________________________________________________________________________________________________________________________________________
 
-Инструкции по Развёртыванию
+Preview: 
+![photo_2023-11-10_20-15-18](https://github.com/zubkovoleg01/cinova/assets/120819704/34f7ccea-1bba-465a-9c84-9745cac3db8e)
 
-● Установка зависимостей:
+_______________________________________________________________________________________________________________________________________________________________
+
+● Registration and authentication:
+
+Users can register and authenticate in the system.
+
+● User profiles:
+
+Users have their own profiles with the ability to edit.
+
+● Content:
+
+Added a large library of movies, TV series and other content by criteria: new, popular, random, whatever. The type of which can be changed depending on the required goals.
+
+● Reviews:
+
+A large database of ratings and reviews has been created for each film and TV series.
+
+● System of reviews and ratings:
+
+Users can leave reviews, rate movies and TV shows.
+
+● List management:
+
+Users add and remove content from favorites.
+
+● Banner:
+
+Administrators have the ability to add, remove and change banners on the home page.
+
+● Search:
+
+Added the ability to search for content by keywords.
+
+● Genres:
+
+Added the ability to sort content by different genres.
+
+● Recommendation content:
+
+Offer of several films.
+
+● Pagination:
+
+Ability to switch pages.
+
+● Details:
+
+Added trailers, viewing methods, actors, similar movies and other necessary information.
+
+
+_______________________________________________________________________________________________________________________________________________________________
+
+Deployment Instructions
+
+● Installing dependencies:
 
 pip install -r requirements.txt
 
-● Создание миграций и применение:
+● Creating migrations and applying:
 
 python manage.py makemigrations
 python manage.py migrate
 
-● Создание суперпользователя (для административной панели):
+● Creating a superuser (for the administrative panel):
 
 python manage.py createsuperuser
 
-● Запуск сервера:
+● Starting the server:
 
 python manage.py runserver
 
-● Административная панель:
+● Administrative panel:
 
-Перейдите по адресу http://localhost:8000/admin и войдите с использованием учетных данных суперпользователя.
+Go to http://localhost:8000/admin and log in using the superuser credentials.
 
-● Добавление Фильмов и Сериалов:
+● Adding Movies and Tv Shows:
 
-В административной панели можно добавлять и редактировать информацию о фильмах и сериалах.
+In the admin panel, you can add and edit information about movies and TV shows.
 
-● Документация API Кинопоиска (опционально):
+● Documentation of the Kinopoisk API (optional):
 
-Документация API Кинопоиска
+Documentation of the Kinopoisk API
 
 _______________________________________________________________________________________________________________________________________________________________
 
