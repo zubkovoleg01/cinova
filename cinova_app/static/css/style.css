@@ -33,7 +33,6 @@ html, body {
 .container {
     width: 1000px;
     margin: 0 auto;
-
 }
 
 .link {
@@ -41,9 +40,11 @@ html, body {
     color: #fff;
 }
 
+/* menu of the site */
+
 .menu{
     background-color: var(--color-dark-1);
-  padding: 10px 0;
+    padding: 10px 0;
     height: 60px;
 }
 
@@ -108,6 +109,8 @@ html, body {
 .icons i:hover {
     color: var(--color-pink);
 }
+
+/* logo in a menu of the site */
 
 .sign {
   padding: 0;
@@ -308,23 +311,28 @@ html, body {
   }
 }
 
+/* search field of the site */
+
 .search-form {
   position: relative;
   width: 300px;
   margin: 0 auto;
   margin-top: 15px;
 }
+
 .search-input, .search-btn {
   border: none;
   outline: none;
   border-radius: 3px;
 }
+
 .search-input {
   width: 100%;
   height: 30px;
   background: #fff;
   padding-left: 15px;
 }
+
 .search-btn {
   height: 20px;
   width: 20px;
@@ -334,6 +342,7 @@ html, body {
   background: var(--color-pink);
   cursor: pointer;
 }
+
 .search-btn:before {
   content: "\f105";
   font-family: FontAwesome;
@@ -341,6 +350,8 @@ html, body {
   font-size: 10px;
   font-weight: bold;
 }
+
+/* banner of the site */
 
 .carousel {
     margin-top: 20px;
@@ -369,6 +380,7 @@ html, body {
     object-fit: cover;
     border-radius: 10px;
 }
+
 .carousel-prev, .carousel-next {
     cursor: pointer;
     position: absolute;
@@ -378,7 +390,7 @@ html, body {
     border: none;
     font-size: 1.2em;
     color: var(--color-cherry);
-        background-color: var(--color-dark-1);
+    background-color: var(--color-dark-1);
     border: 2px solid var(--color-pink);
     border-radius: 15px;
     padding: 10px;
@@ -396,6 +408,7 @@ html, body {
     color: var(--color-pink);
 }
 
+/* genre block of the site */
 
 .genres-section {
     text-align: center;
@@ -432,7 +445,7 @@ html, body {
     font-size: 18px;
     cursor: pointer;
     position: absolute;
-    top: 78%;
+    top: 77%;
     transform: translateY(-50%);
 }
 
@@ -444,36 +457,37 @@ html, body {
     right: 60px;
 }
 
-.catalog-title {
- text-align: center;
- letter-spacing: 2px;
-  margin-top: 12px;
+/* titles of the site */
 
-  width: 100%;
-  font-size: 32px;
-  color: var(--color-cherry);
+.catalog-title {
+   text-align: center;
+   letter-spacing: 2px;
+   margin-top: 12px;
+   width: 100%;
+   font-size: 32px;
+   color: var(--color-cherry);
 }
 
 .home-title {
-margin-left: 7px;
+    margin-left: 7px;
     margin-top: 24px;
     text-align: left;
     letter-spacing: 1px;
-      font-family: 'Gilroy-Semibold', sans-serif;
+    font-family: 'Gilroy-Semibold', sans-serif;
 }
 
+/* cards with movies of the site */
+
 .movie-grid {
-    padding: 20px;
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-
 }
 
-
 .movie-card {
-    width: 350px;
-    height: 350px;
+  width: 350px;
+  height: 350px;
   --transition-duration: 700ms;
   color: white;
   position: relative;
@@ -502,16 +516,13 @@ margin-left: 7px;
 
 .movie-card img {
   flex-grow: 1;
-  width: 350px;
-  height: 350px;
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
   transition: transform var(--transition-duration);
-
-  object-fit: cover;
 }
 
-
 .content {
-
   margin-top: auto;
   text-align: center;
   z-index: 1;
@@ -521,7 +532,6 @@ margin-left: 7px;
   right: min(3em, 8vmin);
   text-align: left;
   transition: transform var(--transition-duration) var(--ease-in-out);
-
   > * {
     position: relative;
     will-change: transform;
@@ -559,8 +569,6 @@ margin-left: 7px;
 .icons {
   display: flex;
   gap: 0.4em;
-
-
 }
 
 .icon-button {
@@ -610,15 +618,14 @@ margin-left: 7px;
   }
 }
 
-
+/* icon with star of the site */
 
 .fa-star {
    margin-top: 3px;
   font-size: 0.9em;
 }
 
-
-
+/* slider home page of the site */
 
 .slider {
     margin: 15px 10px 20px 10px;
@@ -653,6 +660,8 @@ margin-left: 7px;
     color: var(--color-pink);
 }
 
+/* title when no content of the site */
+
 .no-contents {
     text-align: center;
     font-size: 20px;
@@ -662,6 +671,8 @@ margin-left: 7px;
 .no-content {
     margin-top: 37px;
 }
+
+/* scroll up button of the site */
 
 .scroll-to-top {
     position: fixed;
@@ -698,74 +709,6 @@ margin-left: 7px;
 ul{
 	list-style: none;
 }
-.footer{
-    margin-top: 230px;
-	background-color: var(--color-dark-1);
-    padding: 20px 0;
-
-
-}
-.footer .container{
-    box-sizing: border-box;
-    max-width: 1170px;
-    margin: 0 auto;
-
-}
-.footer-col{
-   width: 30%;
-   padding: 0 10px;
-}
-.footer-col h4{
-	font-size: 18px;
-	color: #ffffff;
-	text-transform: capitalize;
-	margin-bottom: 35px;
-	font-weight: 500;
-	position: relative;
-}
-.footer-col h4::before{
-	content: '';
-	position: absolute;
-	left:0;
-	bottom: -10px;
-	background-color: var(--color-pink);
-	height: 2px;
-	box-sizing: border-box;
-	width: 50px;
-}
-.footer-col ul li:not(:last-child){
-	margin-bottom: 10px;
-}
-.footer-col ul li a{
-	font-size: 16px;
-	text-transform: capitalize;
-	color: #ffffff;
-	text-decoration: none;
-	font-weight: 300;
-	color: #bbbbbb;
-	display: block;
-	transition: all 0.3s ease;
-}
-.footer-col ul li a:hover{
-	color: #ffffff;
-	padding-left: 8px;
-}
-.footer-col .social-links a{
-	display: inline-block;
-	height: 40px;
-	width: 40px;
-	background-color: rgba(255,255,255,0.2);
-	margin:0 10px 10px 0;
-	text-align: center;
-	line-height: 40px;
-	border-radius: 50%;
-	color: #ffffff;
-	transition: all 0.5s ease;
-}
-.footer-col .social-links a:hover{
-	color: #24262b;
-	background-color: #ffffff;
-}
 
 .step-links {
     text-align: center;
@@ -775,6 +718,9 @@ ul{
     display: inline-block;
     margin: 0 5px;
 }
+
+/* pagination of the site */
+
 .pagination {
   list-style-type: none;
   display: flex;
@@ -807,23 +753,42 @@ ul{
   font-weight: bold;
 }
 
+/* persons info of the site */
+
+.person-slide {
+  display: flex;
+  overflow: hidden;
+}
+
+.slide {
+  flex: 0 0 25%;
+  box-sizing: border-box;
+  padding: 30px;
+  text-align: center;
+  overflow: hidden;
+  height: 350px;
+}
+
+.movie-detail-persons-img {
+  width: 165px;
+  height: 250px;
+  border-radius: 5%;
+
+}
+
+.movie-detail-persons-name {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.movie-detail-persons-role {
+  margin: 5px 0;
+}
 
 .persons-slider {
     position: relative;
     width: 90%;
-    margin: 0 auto;
-}
-
-.person-slide {
-    display: flex;
-    overflow: hidden;
-}
-
-.slide {
-    flex: 0 0 24.24%;
-    box-sizing: border-box;
-    padding: 10px;
-    text-align: center;
+    margin: 0 auto 70px;
 }
 
 .prev-button-p, .next-button-p {
@@ -847,13 +812,30 @@ ul{
     transform: translateY(-50%);
 }
 
+/* block with random films for user of the site */
+
+.random-film {
+    box-sizing: border-box;
+    padding: 28px;
+    text-align: center;
+}
+
+.random-title {
+    margin-bottom: 12px;
+    margin-left: -5px;
+}
+
+/* page with details of the site */
+
 .movie-detail {
   display: flex;
-
-    width: 1400px;
+  width: 1400px;
   margin: 50px auto 50px;
 
 }
+
+/* background for details of the site */
+
 .backdrop {
   position: absolute;
   z-index: 1;
@@ -862,6 +844,7 @@ ul{
   opacity: 0.5;
   background-size: cover;
 }
+
 .poster-container {
   z-index: 2;
   flex-shrink: 0;
@@ -871,14 +854,14 @@ ul{
 .detail-poster {
   width: 330px;
   height: 500px;
-    border: 2px solid var(--color-pink);
+  border: 2px solid var(--color-pink);
 }
 .movie-detail-name {
-    font-size: 36px;
+  font-size: 36px;
 }
 .movie-info {
   flex-grow: 1;
-    z-index: 2;
+  z-index: 2;
 }
 
 .movie-info p {
@@ -897,12 +880,12 @@ ul{
 }
 
 .info-item {
-    background-color: var(--color-dark-1);
-    color: var(--color-pink);
+  background-color: var(--color-dark-1);
+  color: var(--color-pink);
   border: 2px solid var(--color-pink);
   padding: 10px;
   text-align: center;
-    width: 100px;
+  width: 100px;
   height: 40px;
   box-sizing: border-box;
   margin-bottom: 15px;
@@ -912,42 +895,7 @@ ul{
   margin-bottom: 2px;
 }
 
-.persons-slider {
-  position: relative;
-    margin-bottom: 70px;
-}
-
-.person-slide {
-  display: flex;
-  overflow: hidden;
-}
-
-.slide {
-  flex: 0 0 25%;
-  box-sizing: border-box;
-    padding: 30px;
-  text-align: center;
-    overflow: hidden;
-  height: 350px;
-
-}
-
-.movie-detail-persons-img {
-  width: 210px;
-  height: 240px;
-  border-radius: 5%;
-}
-
-.movie-detail-persons-name {
-  margin: 5px 0;
-  font-weight: bold;
-}
-
-.movie-detail-persons-role {
-  margin: 5px 0;
-}
-
-
+/* links for watch of the site */
 
 .watchabilitys {
   display: flex;
@@ -962,9 +910,9 @@ ul{
 .watchability-img {
   width: 90px;
   height: auto;
-    border: 2px solid var(--color-pink);
-      margin: 3px;
-      transition: transform 0.3s ease;
+  border: 2px solid var(--color-pink);
+  margin: 3px;
+  transition: transform 0.3s ease;
 }
 
 .watchability-img:hover {
@@ -977,7 +925,7 @@ ul{
 }
 
 .movie-button {
-      display: inline-block;
+  display: inline-block;
   margin-right: 10px;
 }
 
@@ -1000,6 +948,8 @@ ul{
   background-color: #08e3c2;
   transform: scale(1.1);
 }
+
+/* reviews of the site */
 
 .review-container {
     display: flex;
@@ -1062,13 +1012,10 @@ ul{
     color: var(--color-pink);
 }
 
-
-
 .form-container form {
     display: flex;
     flex-direction: column;
 }
-
 
 .form-container label {
     font-weight: bold;
@@ -1103,6 +1050,8 @@ input[type="password"] {
     background-color: var(--color-cherry);
 }
 
+/* links of the site */
+
 .links {
     display: flex;
     justify-content: space-between;
@@ -1119,6 +1068,8 @@ input[type="password"] {
 
 }
 
+/* user account of the site */
+
 .account-container {
     display: flex;
     flex-direction: row;
@@ -1128,9 +1079,9 @@ input[type="password"] {
 
 .form-account{
     background-color: #262835;
-margin-right: 50px;
+    margin-right: 50px;
     padding: 20px;
-        border: 3px solid var(--color-pink);
+    border: 3px solid var(--color-pink);
     border-radius: 8px;
     margin-bottom: 20px;
     width: 200px;
@@ -1138,14 +1089,15 @@ margin-right: 50px;
     font-size: 16px;
     color: #fff;
     cursor: pointer;
-      transition: transform 0.3s ease;
-  font-family: 'Gilroy-Semibold';
+    transition: transform 0.3s ease;
+    font-family: 'Gilroy-Semibold';
 }
 
 .form-account:hover{
     background-color: #2A2C3A;
 }
 
+/* new review of the site */
 
 .comment-form {
     max-width: 1000px;
@@ -1205,9 +1157,10 @@ margin-right: 50px;
     justify-content: space-between;
     margin: 0 auto;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #fff;
+    border-radius: 5px;
     margin-bottom: 10px;
-    background-color: #f9f9f9;
+    background-color: var(--color-dark-1);
     color: var(--color-pink);
 }
 
@@ -1215,14 +1168,14 @@ margin-right: 50px;
 .comment-body {
     flex: 1;
     margin: 0;
-word-break: break-all;
+    word-break: break-all;
 }
 
 .delete-link {
     color: var(--color-cherry);
     text-decoration: none;
     margin-left: 30px;
-        border: 1px solid var(--color-pink);
+    border: 1px solid var(--color-pink);
     padding: 5px 10px;
     border-radius: 5px;
 }
@@ -1231,14 +1184,85 @@ word-break: break-all;
     background-color: var(--color-pink);
 }
 
-.random-film {
+/* footer of the site */
 
-            box-sizing: border-box;
-    padding: 28px;
-    text-align: center;
+.footer{
+    margin-top: 230px;
+	background-color: var(--color-dark-1);
+    padding: 20px 0;
 }
 
-.random-title {
-    margin-bottom: 12px;
-    margin-left: -7px;
+.footer .container{
+    box-sizing: border-box;
+    max-width: 1170px;
+    margin: 0 auto;
 }
+
+.footer-col{
+   width: 30%;
+   padding: 0 10px;
+}
+
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: var(--color-pink);
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
+
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #ffffff;
+	transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+
+
+
+
+

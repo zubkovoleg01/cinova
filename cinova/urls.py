@@ -20,7 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from cinova_app import views
 
-handler404 = 'cinova_app.views.custom_404'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

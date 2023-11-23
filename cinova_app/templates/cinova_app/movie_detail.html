@@ -2,107 +2,111 @@
 {% load static %}
 
 {% block content %}
-  <div class="movie-detail">
+<div class="movie-detail">
     <div class="backdrop" style="background-image: url('{{ movie.backdrop.url }}');"></div>
     <div class="poster-container">
-      {% if movie.poster %}
+        {% if movie.poster %}
         <img class="detail-poster" src="{{ movie.poster.url }}" alt="{{ movie.name }}">
-      {% endif %}
+        {% endif %}
     </div>
     <div class="movie-info">
-      <h1 class="movie-detail-name">{{ movie.name }}</h1>
-    <div class="info-container">
-    {% if movie.year %}
-        <div class="info-item">
-        <p class="info-value"><i class="fas fa-calendar"></i> {{ movie.year }}</p>
+        <h1 class="movie-detail-name">{{ movie.name }}</h1>
+        <div class="info-container">
+            {% if movie.year %}
+            <div class="info-item">
+                <p class="info-value"><i class="fas fa-calendar"></i> {{ movie.year }}</p>
+            </div>
+            {% endif %}
+            {% if movie.rating %}
+            <div class="info-item">
+                <p class="info-value"> {{ movie.rating.kp|floatformat:1 }} <i class="fas fa-star"></i></p>
+            </div>
+            {% endif %}
+            {% if movie.rating and movie.rating.imdb %}
+            <div class="info-item">
+                <p class="info-value">IMDb {{ movie.rating.imdb }}</p>
+            </div>
+            {% endif %}
+            {% if movie.movieLength %}
+            <div class="info-item">
+                <p class="info-value"><i class="fas fa-clock"></i> {{ movie.movieLength }}</p>
+            </div>
+            {% endif %}
+            {% if movie.ageRating %}
+            <div class="info-item">
+                <p class="info-value">{{ movie.ageRating }}+</p>
+            </div>
+            {% endif %}
         </div>
-          {% endif %}
-          {% if movie.rating %}
-            <div class="info-item">
-              <p class="info-value"> {{ movie.rating.kp|floatformat:1 }} <i class="fas fa-star"></i></p>
-            </div>
-          {% endif %}
-          {% if movie.rating and movie.rating.imdb %}
-            <div class="info-item">
-              <p class="info-value">IMDb {{ movie.rating.imdb }}</p>
-            </div>
-          {% endif %}
-          {% if movie.movieLength %}
-            <div class="info-item">
-              <p class="info-value"><i class="fas fa-clock"></i> {{ movie.movieLength }}</p>
-            </div>
-          {% endif %}
-          {% if movie.ageRating %}
-            <div class="info-item">
-              <p class="info-value">{{ movie.ageRating }}+</p>
-            </div>
-          {% endif %}
+        <div class="movie-description">
+            {% if movie.description %}
+            <p>{{ movie.description }}</p>
+            {% endif %}
         </div>
-            <div class="movie-description">
-              {% if movie.description %}
-                <p>{{ movie.description }}</p>
-              {% endif %}
-            </div>
 
-            {% if movie.watchability and movie.watchability.items %}
+        {% if movie.watchability and movie.watchability.items %}
         {% for watchability_item in movie.watchability.items %}
-          {% if watchability_item.logo and watchability_item.name and watchability_item.url %}
-            <a href="{{ watchability_item.url }}"><img class="watchability-img" src="{{ watchability_item.logo.url }}" alt="{{ watchability_item.name }}"></a>
+        {% if watchability_item.logo and watchability_item.name and watchability_item.url %}
+        <a href="{{ watchability_item.url }}" target="_blank"><img class="watchability-img"
+                                                                   src="{{ watchability_item.logo.url }}"
+                                                                   alt="{{ watchability_item.name }}"></a>
 
-          {% endif %}
-        {% endfor %}
-    {% endif %}
-                {% if movie.videos and movie.videos.trailers %}
-        <div class="movie-buttons">
-        <div class="movie-button">
-          <a href="{{ movie.videos.trailers.0.url }}" class="watch-trailer-link">Смотреть трейлер</a>
-        </div>
         {% endif %}
-        <div class="movie-button">
-            <form action="{% url 'cinova:add_to_favorites' movie.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="icon-button">Добавить в избранное</button>
-            </form>
-        </div>
-        <div class="movie-button">
-                <a href="{% url 'cinova:reviews' movie.id %}">Комментарии</a>
-        </div>
+        {% endfor %}
+        {% endif %}
+        {% if movie.videos and movie.videos.trailers %}
+        <div class="movie-buttons">
             <div class="movie-button">
-                <a href="{% if user.is_authenticated %}{% url 'cinova:add_review' movie.id %}{% else %}{% url 'account_login' %}{% endif %}">Оставить комментарий</a>
+                <a href="{{ movie.videos.trailers.0.url }}" class="watch-trailer-link" target="_blank">Смотреть
+                    трейлер</a>
+            </div>
+            {% endif %}
+            <div class="movie-button">
+                <form action="{% url 'cinova:add_to_favorites' movie.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="icon-button">Добавить в избранное</button>
+                </form>
+            </div>
+            <div class="movie-button">
+                <a href="{% url 'cinova:reviews' movie.id %}">Комментарии</a>
+            </div>
+            <div class="movie-button">
+                <a href="{% if user.is_authenticated %}{% url 'cinova:add_review' movie.id %}{% else %}{% url 'account_login' %}{% endif %}">
+                    Оставить комментарий</a>
             </div>
         </div>
     </div>
-  </div>
-    <div class="persons-slider">
-        <div class="person-slide">
-            {% for person in movie.persons %}
-                <div class="slide">
-                    {% if person.photo %}
-                        <img class="movie-detail-persons-img" src="{{ person.photo }}" alt="{{ person.name }}">
-                    {% endif %}
-                    <p class="movie-detail-persons-name">{{ person.name }} {% if person.enName %} ({{ person.enName }}) {% endif %}</p>
-                    {% if person.description %}
-                        <p class="movie-detail-persons-role">Роль: {{ person.description }}</p>
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-        <button class="prev-button-p"><i class="fas fa-chevron-left"></i></button>
-        <button class="next-button-p"><i class="fas fa-chevron-right"></i></button>
+</div>
+<div class="persons-slider">
+    <div class="person-slide">
+        {% for person in movie.persons %}
+            <div class="slide">
+                {% if person.photo %}
+                <img class="movie-detail-persons-img" src="{{ person.photo }}" alt="{{ person.name }}">
+                {% endif %}
+                <p class="movie-detail-persons-name">{{ person.name }} {% if person.enName %} ({{ person.enName }}) {% endif %}</p>
+                {% if person.description %}
+                <p class="movie-detail-persons-role">Роль: {{ person.description }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
     </div>
-  </div>
+    <button class="prev-button-p"><i class="fas fa-chevron-left"></i></button>
+    <button class="next-button-p"><i class="fas fa-chevron-right"></i></button>
+</div>
+</div>
 <section class="movies movie-grid">
-        <div class="catalog-title">
-      Похожие фильмы
+    <div class="catalog-title">
+        ПОХОЖИЕ ФИЛЬМЫ
     </div>
     {% for similar_movie in movie.similarMovies|slice:":8" %}
     <article class="movie-card ">
-      <img src="{{ similar_movie.poster.url }}" alt="{{ similar_movie.name }}">
+        <img src="{{ similar_movie.poster.url }}" alt="{{ similar_movie.name }}">
 
-      <div class="content">
-        <h1>{{ similar_movie.name }}</h1>
+        <div class="content">
+            <h1>{{ similar_movie.name }}</h1>
 
-        <div class="infos">
+            <div class="infos">
             <span>
                 {% if similar_movie.rating.imdb %}
                     {{ similar_movie.rating.imdb }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
@@ -118,21 +122,21 @@
                         ·&nbsp;&nbsp;{{ similar_movie.movieLength }}м
                     {% endif %}
             </span>
-        </div>
+            </div>
 
-        <p class="synopsis">
-          {{ similar_movie.description|truncatechars:250 }}
-        </p>
+            <p class="synopsis">
+                {{ similar_movie.description|truncatechars:250 }}
+            </p>
 
-        <div class="icons">
-            <form action="{% url 'cinova:add_to_favorites' similar_movie.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
-            </form>
-          <a href="{% url 'cinova:movie_detail' similar_movie.id %}"><i class="fas fa-eye"></i></a>
-            <a href="{% url 'cinova:reviews' similar_movie.id %}"><i class="fas fa-comments"></i></a>
+            <div class="icons">
+                <form action="{% url 'cinova:add_to_favorites' similar_movie.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
+                </form>
+                <a href="{% url 'cinova:movie_detail' similar_movie.id %}"><i class="fas fa-eye"></i></a>
+                <a href="{% url 'cinova:reviews' similar_movie.id %}"><i class="fas fa-comments"></i></a>
+            </div>
         </div>
-      </div>
     </article>
     {% endfor %}
 </section>

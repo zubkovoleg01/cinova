@@ -7,8 +7,7 @@
         КАТАЛОГ ФИЛЬМОВ
     </div>
 
-    {% for movie in movies %}
-    <!--  <p>{{ movie.externalId.kpHD }}</p>-->
+    {% for movie in page_obj %}
     <article class="movie-card ">
         <img src="{{ movie.poster.url }}" alt="{{ movie.name }}">
 
@@ -49,7 +48,7 @@
     </article>
     {% endfor %}
 </section>
-    <div class="pagination">
+<div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1"><i class="fas fa-angle-double-left"></i></a>
@@ -65,5 +64,5 @@
             <a href="?page={{ page_obj.paginator.num_pages }}"><i class="fas fa-angle-double-right"></i></a>
         {% endif %}
     </span>
-    </div>
+</div>
 {% endblock %}

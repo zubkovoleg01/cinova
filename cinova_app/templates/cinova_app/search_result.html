@@ -4,19 +4,19 @@
 {% block content %}
 <section class="movies movie-grid">
     {% if movies_data %}
-        <div class="catalog-title">
-          НАЙДЕННЫЕ РЕЗУЛЬТАТЫ
-        </div>
-            {% for movie in movies_data %}
-              <article class="movie-card">
-                    <img
-                        src="{{ movie.posterUrlPreview }}"
-                        alt="{{ movie.nameRu }}"
-                    />
-                    <div class="content">
-                        <h1>{{ movie.nameRu }} </h1>
+    <div class="catalog-title">
+        НАЙДЕННЫЕ РЕЗУЛЬТАТЫ
+    </div>
+    {% for movie in movies_data %}
+    <article class="movie-card">
+        <img
+                src="{{ movie.posterUrlPreview }}"
+                alt="{{ movie.nameRu }}"
+        />
+        <div class="content">
+            <h1>{{ movie.nameRu }} </h1>
 
-                          <div class="infos">
+            <div class="infos">
                               <span>
                                     {% if movie.rating %}
                                         {{ movie.rating }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
@@ -28,31 +28,30 @@
                                         ·&nbsp;&nbsp;{{ movie.filmLength}}м
                                     {% endif %}
                               </span>
-                          </div>
+            </div>
 
-                          <p class="synopsis">
-                            {{ movie.description|truncatechars:250 }}
-                          </p>
+            <p class="synopsis">
+                {{ movie.description|truncatechars:250 }}
+            </p>
 
-                            <div class="icons">
-                                <form action="{% url 'cinova:add_to_favorites' movie.filmId %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
-                                </form>
-                                <a href="{% url 'cinova:movie_detail' movie.filmId %}"><i class="fas fa-eye"></i></a>
-                                <a href="{% url 'cinova:reviews' movie.filmId %}"><i class="fas fa-comments"></i></a>
-                            </div>
+            <div class="icons">
+                <form action="{% url 'cinova:add_to_favorites' movie.filmId %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
+                </form>
+                <a href="{% url 'cinova:movie_detail' movie.filmId %}"><i class="fas fa-eye"></i></a>
+                <a href="{% url 'cinova:reviews' movie.filmId %}"><i class="fas fa-comments"></i></a>
+            </div>
 
-                    </div>
-              </article>
-            {% endfor %}
+        </div>
+    </article>
+    {% endfor %}
 
-        {% else %}
+    {% else %}
     <div class="catalog-title no-content">
-        Результатов не найдено
+        РЕЗУЛЬТАТОВ НЕ НАЙДЕНО
     </div>
-        {% endif %}
-
+    {% endif %}
 </section>
 {% endblock %}
 

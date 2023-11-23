@@ -1,3 +1,4 @@
+// code for the slide carousel
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('.carousel-container');
     const slides = document.querySelectorAll('.carousel-slide');
@@ -6,10 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let index = 0;
 
+    // updating the slide position
     function updateSlidePosition() {
         container.style.transform = `translateX(-${index * 100}%)`;
     }
 
+    // displaying a specific slide by index
     function showSlide(i) {
         index = i;
         updateSlidePosition();
@@ -37,11 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     nextBtn.addEventListener('click', nextSlide);
 
-
+    // automatic slide switching after a certain time interval
     setInterval(nextSlide, 5000);
 
 });
 
+// code for slider of popular and new blocks
 document.addEventListener('DOMContentLoaded', function() {
     function initializeSlider(sliderId) {
         const sliderContainer = document.querySelector(`#${sliderId} .slider-container`);
@@ -81,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
             animateSlides();
         }
 
+        // for slide scrolling animation
         function animateSlides() {
             let start = null;
             const startIndex = currentSlide;
@@ -116,24 +121,28 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(autoSlide, autoSlideInterval);
     }
 
+    // initializing sliders by their ID
     initializeSlider('popular-slider');
     initializeSlider('new-slider');
 });
 
+// code for button up
 document.addEventListener('DOMContentLoaded', function() {
     let scrollButton = document.getElementById('myBtn');
 
+    // for smooth scrolling of the page to the top
     function scrollToTop() {
         let position = document.documentElement.scrollTop || document.body.scrollTop;
 
         if (position > 0) {
             window.requestAnimationFrame(scrollToTop);
-            window.scrollTo(0, position - 80);
+            window.scrollTo(0, position - 80); // smooth page scrolling 80 pixels up
         }
     }
 
+    // scrolling is only available at > 900 pixels
     window.onscroll = function() {
-        if (document.body.scrollTop > 1100 || document.documentElement.scrollTop > 1100) {
+        if (document.body.scrollTop > 900 || document.documentElement.scrollTop > 900) {
             scrollButton.parentNode.classList.add('show');
         } else {
             scrollButton.parentNode.classList.remove('show');
@@ -143,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollButton.addEventListener('click', scrollToTop);
 });
 
+// code for slider of genre block
 document.addEventListener('DOMContentLoaded', function() {
     var genreSection = document.querySelector('.genres-section');
     var genreBlocks = document.querySelectorAll('.genre-block');
@@ -174,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     showSlides(currentIndex);
 });
 
+// code for slider of persons block
 document.addEventListener('DOMContentLoaded', function() {
     var personSlide = document.querySelector('.person-slide');
     var prevButtonP = document.querySelector('.prev-button-p');
@@ -209,3 +220,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     showSlides();
 });
+

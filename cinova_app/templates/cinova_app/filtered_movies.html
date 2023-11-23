@@ -4,18 +4,14 @@
 {% block content %}
 <section class="movies movie-grid">
     <div class="catalog-title">
-      Фильмы по выбранному жанру: {{ genre }}
+        Фильмы по выбранному жанру: {{ genre }}
     </div>
-
-  {% for movie in movies %}
-<!--  <p>{{ movie.externalId.kpHD }}</p>-->
+    {% for movie in page_obj %}
     <article class="movie-card ">
-      <img src="{{ movie.poster.url }}" alt="{{ movie.name }}">
-
-      <div class="content">
-        <h1>{{ movie.name }}</h1>
-
-        <div class="infos">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.name }}">
+        <div class="content">
+            <h1>{{ movie.name }}</h1>
+            <div class="infos">
             <span>
                 {% if movie.rating.imdb %}
                     {{ movie.rating.imdb }}&nbsp;<i class="fas fa-star"></i>&nbsp;&nbsp;
@@ -31,22 +27,39 @@
                         ·&nbsp;&nbsp;{{ movie.movieLength }}м
                     {% endif %}
             </span>
-        </div>
+            </div>
 
-        <p class="synopsis">
-          {{ movie.description|truncatechars:250 }}
-        </p>
+            <p class="synopsis">
+                {{ movie.description|truncatechars:250 }}
+            </p>
 
-        <div class="icons">
-            <form action="{% url 'cinova:add_to_favorites' movie.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
-            </form>
-          <a href="{% url 'cinova:movie_detail' movie.id %}"><i class="fas fa-eye"></i></a>
-            <a href="{% url 'cinova:reviews' movie.id %}"><i class="fas fa-comments"></i></a>
+            <div class="icons">
+                <form action="{% url 'cinova:add_to_favorites' movie.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="icon-button"><i class="fas fa-heart"></i></button>
+                </form>
+                <a href="{% url 'cinova:movie_detail' movie.id %}"><i class="fas fa-eye"></i></a>
+                <a href="{% url 'cinova:reviews' movie.id %}"><i class="fas fa-comments"></i></a>
+            </div>
         </div>
-      </div>
     </article>
-  {% endfor %}
+    {% endfor %}
 </section>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1"><i class="fas fa-angle-double-left"></i></a>
+            <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}"><i class="fas fa-angle-double-right"></i></a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}

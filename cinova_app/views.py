@@ -9,13 +9,7 @@ from kinopoisk_dev.model import MovieDocsResponseDto, Movie, ReviewDocsResponseD
 from .models import FavoriteMovie, Poster, Comment
 from .forms import CommentForm
 
-TOKEN = "D6688G0-ERW4WVC-J0M3Q74-9K2E2NE"
-# TOKEN = "ERVKSC2-VC14SN0-MMBQXZ9-Q29R7HV"
-# TOKEN = "56B40V5-8J9M118-HWS3PW9-NEE3B3Q"
-# TOKEN = "NG7G6ZK-BQ9MWBT-N2XEAZ3-D7RJJQV"
-# TOKEN = "7GQ13AW-HGMMVMK-GQWF3ZD-YN81Q38"
-# TOKEN = 'GDCFXRR-C624W2R-G599C2A-V0RRAQF'
-
+TOKEN = "YOUR TOKEN"
 
 def home(request):
     posters = Poster.objects.all()
@@ -27,10 +21,6 @@ def home(request):
                'random_films': random_films}
 
     return render(request, 'cinova_app/home.html', context)
-
-def custom_404(request, exception):
-    return render(request, '404.html', status=404)
-
 
 @login_required
 def likes_view(request):
@@ -52,13 +42,11 @@ def likes_view(request):
 
     return render(request, 'cinova_app/likes.html', context)
 
-def thank_you(request):
-    return render(request, 'cinova_app/thank_you.html')
-
 @login_required
 def account_view(request):
     user_comments = Comment.objects.filter(author=request.user).order_by('-date')
-    return render(request, 'account/account.html', {'user_comments': user_comments})
+    context = {'user_comments': user_comments}
+    return render(request, 'account/account.html', context)
 
 
 def movie_view(request):
@@ -67,16 +55,18 @@ def movie_view(request):
     item = kp.find_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=page_number),
-            MovieParams(keys=MovieField.LIMIT, value=16),
+            MovieParams(keys=MovieField.LIMIT, value=9999),
             MovieParams(keys=MovieField.TYPE, value='movie'),
         ]
     )
     movies = item.docs
 
-    paginator = Paginator(movies, 4)
+    paginator = Paginator(movies, 20)
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'cinova_app/movies.html', {'movies': movies, 'page_obj': page_obj})
+    context = {'page_obj': page_obj}
+
+    return render(request, 'cinova_app/movies.html', context)
 
 
 def series_view(request):
@@ -85,23 +75,25 @@ def series_view(request):
     item = kp.find_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=page_number),
-            MovieParams(keys=MovieField.LIMIT, value=16),
+            MovieParams(keys=MovieField.LIMIT, value=9999),
             MovieParams(keys=MovieField.TYPE, value='tv-series'),
         ]
     )
 
     series = item.docs
 
-    paginator = Paginator(series, 4)
+    paginator = Paginator(series, 20)
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'cinova_app/series.html', {'series': series, 'page_obj': page_obj})
+    context = {'series': series, 'page_obj': page_obj}
+
+    return render(request, 'cinova_app/series.html', context)
 
 def search_movies(request):
     query = request.GET.get('q', '')
 
     if query:
-        API_KEY = "8c8e1a50-6322-4135-8875-5d40a5420d86"
+        API_KEY = "YOUR TOKEN"
         API_URL_SEARCH = f"https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword={query}"
         response = requests.get(API_URL_SEARCH, headers={"X-API-KEY": API_KEY})
         movies_data = response.json().get('films', [])
@@ -109,6 +101,7 @@ def search_movies(request):
         movies_data = []
 
     context = {'movies_data': movies_data}
+
     return render(request, 'cinova_app/search_result.html', context)
 
 
@@ -117,6 +110,7 @@ def movie_detail(request, movie_id):
     movie = kp.find_one_movie(movie_id)
 
     context = {'movie': movie}
+
     return render(request, 'cinova_app/movie_detail.html', context)
 
 
@@ -124,14 +118,16 @@ def series_detail(request, series_id):
     kp = KinopoiskDev(token=TOKEN)
     series = kp.find_one_movie(series_id)
 
-    return render(request, 'cinova_app/series_detail.html', {'series': series})
+    context = {'series': series}
+
+    return render(request, 'cinova_app/series_detail.html', context)
 
 async def get_popular_movies_async() -> MovieDocsResponseDto:
     kp = KinopoiskDev(token=TOKEN)
     item = await kp.afind_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=1),
-            MovieParams(keys=MovieField.LIMIT, value=30),
+            MovieParams(keys=MovieField.LIMIT, value=100),
             MovieParams(keys=MovieField.TYPE, value='movie'),
         ]
     )
@@ -143,7 +139,7 @@ async def get_new_movies_async() -> MovieDocsResponseDto:
     item = await kp.afind_many_movie(
         params=[
             MovieParams(keys=MovieField.PAGE, value=1),
-            MovieParams(keys=MovieField.LIMIT, value=30),
+            MovieParams(keys=MovieField.LIMIT, value=100),
             MovieParams(keys=MovieField.TYPE, value='movie'),
             MovieParams(keys=MovieField.YEAR, value='2023'),
         ]
@@ -187,18 +183,19 @@ def filtered_movies(request, genre):
     url = 'https://api.kinopoisk.dev/v1/movie'
     params = {
         "genres.name": genre,
-        "limit": request.GET.get('limit', 32),
+        "limit": request.GET.get('limit', 9999),
         "page": request.GET.get('page', 1),
     }
 
     response = requests.get(url, params=params, headers=headers)
     movies = response.json().get('docs', [])
 
-    paginator = Paginator(movies, 16)
+    paginator = Paginator(movies, 20)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
     context = {'movies': page_obj, 'genre': genre, 'page_obj': page_obj}
+
     return render(request, 'cinova_app/filtered_movies.html', context)
 
 def get_review(request, movie_id) -> ReviewDocsResponseDto:
@@ -208,17 +205,19 @@ def get_review(request, movie_id) -> ReviewDocsResponseDto:
         params=[
             ReviewParams(keys=ReviewField.MOVIE_ID, value=movie_id),
             MovieParams(keys=MovieField.PAGE, value=page_number),
-            ReviewParams(keys=ReviewField.LIMIT, value=3),
+            ReviewParams(keys=ReviewField.LIMIT, value=100),
         ]
     )
     reviews = item.docs
 
     reviews_from_site = Comment.objects.filter(movie_id=movie_id).order_by('-date')
 
-    paginator = Paginator(reviews, 2)
+    paginator = Paginator(reviews, 10)
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'cinova_app/reviews.html', {'reviews': reviews, 'page_obj': page_obj, 'reviews_from_site': reviews_from_site})
+    context = {'reviews': reviews, 'page_obj': page_obj, 'reviews_from_site': reviews_from_site}
+
+    return render(request, 'cinova_app/reviews.html', context)
 
 def add_review(request, movie_id):
     if request.method == 'POST':
@@ -233,7 +232,9 @@ def add_review(request, movie_id):
     else:
         form = CommentForm()
 
-    return render(request, 'cinova_app/add_review.html', {'form': form, 'movie_id': movie_id})
+    context = {'form': form, 'movie_id': movie_id}
+
+    return render(request, 'cinova_app/add_review.html', context)
 
 def delete_review(request, movie_id):
     reviews_from_site = Comment.objects.filter(movie_id=movie_id, author=request.user)

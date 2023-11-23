@@ -3,8 +3,8 @@
 
 {% block content %}
 <form method="post" action="{% url 'cinova:add_review' movie_id %}" class="comment-form">
-  {% csrf_token %}
-  {{ form }}
-  <button type="submit">Отправить</button>
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Отправить</button>
 </form>
 {% endblock %}

@@ -7,87 +7,89 @@
     <title>CINOVA</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" href="#" type="image/png">
+    <link rel="icon" href="{% static 'cinova_app/images/icon.png' %}" type="image/png">
+
 </head>
 <body>
-
-    <header class="header">
-        <nav class="menu">
-          <div class="container menu-container">
-              <div class="sign">
-                  <a href="{% url 'home' %}"><span class="fast-flicker">c</span>in<span class="flicker">o</span>va</a>
-              </div>
-              <div class="menu-items">
-                    <div class="menu-item {% if request.path == '/' %}current{% endif %}">
-                      <a href="{% url 'home' %}">Главная</a>
-                    </div>
-                    <div class="menu-item {% if request.path == '/cinova/movies/' %}current{% endif %}">
-                      <a href="{% url 'cinova:movies' %}">Фильмы</a>
-                    </div>
-                    <div class="menu-item {% if request.path == '/cinova/series/' %}current{% endif %}">
-                      <a href="{% url 'cinova:series' %}">Сериалы</a>
-                    </div>
-                    <div class="menu-item {% if request.path == '/cinova/likes/' %}current{% endif %}">
-                      <a href="{% url 'cinova:likes' %}">Избранное</a>
-                    </div>
-              </div>
-                <div class="icons">
-                    <form class="search-form" method="get" action="{% url 'cinova:search_movies' %}">
-                      <div>
-                        <input class="search-input" type="search" placeholder="Поиск" name="q" />
-                        <button class="search-btn" type="submit"></button>
-                      </div>
-                    </form>
-                    <a class="user" href="{% if user.is_authenticated %}{% url 'cinova:account' %}{% else %}{% url 'account_login' %}{% endif %}">
-                        <i class="fas fa-user"></i>
-                    </a>
+<header class="header">
+    <nav class="menu">
+        <div class="container menu-container">
+            <div class="sign">
+                <a href="{% url 'home' %}"><span class="fast-flicker">c</span>in<span class="flicker">o</span>va</a>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item {% if request.path == '/' %}current{% endif %}">
+                    <a href="{% url 'home' %}">Главная</a>
                 </div>
-          </div>
-        </nav>
-    </header>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+                <div class="menu-item {% if request.path == '/cinova/movies/' %}current{% endif %}">
+                    <a href="{% url 'cinova:movies' %}">Фильмы</a>
+                </div>
+                <div class="menu-item {% if request.path == '/cinova/series/' %}current{% endif %}">
+                    <a href="{% url 'cinova:series' %}">Сериалы</a>
+                </div>
+                <div class="menu-item {% if request.path == '/cinova/likes/' %}current{% endif %}">
+                    <a href="{% url 'cinova:likes' %}">Избранное</a>
+                </div>
+            </div>
+            <div class="icons">
+                <form class="search-form" method="get" action="{% url 'cinova:search_movies' %}">
+                    <div>
+                        <input class="search-input" type="search" placeholder="Поиск" name="q"/>
+                        <button class="search-btn" type="submit"></button>
+                    </div>
+                </form>
+                <a class="user"
+                   href="{% if user.is_authenticated %}{% url 'cinova:account' %}{% else %}{% url 'account_login' %}{% endif %}">
+                    <i class="fas fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
 
-  <footer class="footer">
-  	 <div class="container">
-  	 	<div class="row">
-  	 		<div class="footer-col">
-  	 			<h4>разделы</h4>
-  	 			<ul>
-  	 				<li><a href="{% url 'home' %}">главная</a></li>
-  	 				<li><a href="{% url 'cinova:movies' %}">фильмы</a></li>
-  	 				<li><a href="{% url 'cinova:series' %}">сериалы</a></li>
-  	 				<li><a href="{% url 'cinova:likes' %}">избранное</a></li>
-  	 			</ul>
-  	 		</div>
-  	 		<div class="footer-col">
-  	 			<h4>информация</h4>
-  	 			<ul>
-  	 				<li><a href="#">правила</a></li>
-  	 				<li><a href="#">соглашения</a></li>
-  	 				<li><a href="#">реклама</a></li>
-                    <li><a href="mailto:cinovacinema@gmail.com" style="text-transform: lowercase;"><span style="text-transform: capitalize;">П</span>омощь или сотрудничество: cinovacinema@gmail.com</a></li>
-  	 			</ul>
-  	 		</div>
-  	 		<div class="footer-col">
-  	 			<h4>наши соцсети</h4>
-  	 			<div class="social-links">
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col">
+                <h4>разделы</h4>
+                <ul>
+                    <li><a href="{% url 'home' %}">главная</a></li>
+                    <li><a href="{% url 'cinova:movies' %}">фильмы</a></li>
+                    <li><a href="{% url 'cinova:series' %}">сериалы</a></li>
+                    <li><a href="{% url 'cinova:likes' %}">избранное</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>информация</h4>
+                <ul>
+                    <li><a href="#">правила</a></li>
+                    <li><a href="#">соглашения</a></li>
+                    <li><a href="#">реклама</a></li>
+                    <li><a href="mailto:cinovacinema@gmail.com" style="text-transform: lowercase;"><span
+                            style="text-transform: capitalize;">П</span>омощь или сотрудничество: cinovacinema@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>наши соцсети</h4>
+                <div class="social-links">
                     <a href="#"><i class="fab fa-telegram"></i></a>
-  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
-  	 				<a href="#"><i class="fab fa-twitter"></i></a>
-  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-vk"></i></a>
-  	 			</div>
-  	 		</div>
-  	 	</div>
-         <p style="text-align: center;">Copyright 2023 ©CINOVA. Все права защищены.</p>
-  	 </div>
-  </footer>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center;">Copyright 2023 ©CINOVA. Все права защищены.</p>
+    </div>
+</footer>
 
-    <script src="{% static 'js/script.js' %}"></script>
-
+<script src="{% static 'js/script.js' %}"></script>
 
 </body>
 </html>
